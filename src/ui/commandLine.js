@@ -1,20 +1,40 @@
-import React from 'react';
-import './commandLine.css';
+import React, { createRef } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import { userInput, gameResponse } from '../actions';
 
 class CommandLine extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleKey = this.handleKey.bind(this);
-  }
+  commandLine = createRef();
   
-  handleKey(event) {
-    if (event.key === 'Enter')
-      this.refs.commandLine.value = '';
+  handleKey = (event) => {
+    if (event.key === 'Enter') {
+      const commandLine = this.commandLine.current;
+      
+      if (commandLine.value !== '') {
+        const { input, respond, time }  = this.props;
+        
+        input(time, commandLine.value, true);
+        commandLine.value = '';
+        respond(time);
+      }
+    }
   }
   
   render() {
-    return <input type='text' ref='commandLine' autoFocus='true' onKeyPress={this.handleKey} />;
+    return <input type='text' ref={this.commandLine} autoFocus onKeyPress={this.handleKey} />;
   }
 }
 
-export default CommandLine;
+function matchStateToProps(state) {
+  return { time: state.time };
+}
+
+function matchDispatchToProps(dispatch){
+  return bindActionCreators(
+    { input: userInput, respond: gameResponse },
+    dispatch
+  );
+}
+
+export default connect(matchStateToProps, matchDispatchToProps)(CommandLine);
