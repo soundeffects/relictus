@@ -1,31 +1,33 @@
-class Bot {
+export default class Bot {
   #name;
-  #process;
   #modules;
+  #location;
   
-  constructor(name) {
+  constructor(name, location) {
     this.#name = name;
-    this.#process = 'none';
     this.#modules = [];
+    this.#location = location;
   }
   
   get name() {
     return this.#name;
   }
   
-  get process() {
-    return this.#process;
-  }
-  
   get modules() {
     return this.#modules;
   }
   
+  get location() {
+    return this.#location;
+  }
+  
   addModule(module) {
-    this.#modules.concat(module);
+    this.#modules = [...this.#modules, module];
   }
   
   removeModule(module) {
-    //TODO
+    const i = this.#modules.indexOf(module);
+    if (i > -1)
+      this.#modules.splice(i, 1);
   }
 }

@@ -1,14 +1,41 @@
 import React from 'react';
-import BotComponent from './botComponent';
+import { connect } from 'react-redux';
+import Scrollbars from 'react-custom-scrollbars';
 
-export default class Status extends React.Component {
+class Status extends React.Component {
+  renderModule(module, key) {
+    return <h3 key={key}>
+      {module.name}
+    </h3>;
+  }
+  
+  renderBot(bot, key) {
+    const { name, location, modules } = bot;
+    
+    return <li key={key}>
+      <h2>{name}</h2>
+      <h3>At the {location.name.toLowerCase()}</h3>
+      { modules.map((module, index) => this.renderModule(module, index))}
+      <hr />
+    </li>;
+  }
+  
   render() {
     return <aside>
-      <h1>RelictusOS</h1>
-      <h2>v0.1 Condor</h2>
+      <h1>RTerm indev</h1>
       <hr />
       
-      {/*<BotComponent />*/}
+      <Scrollbars style={{ width: '100%', height: '80%' }}>
+        <ol>
+          { this.props.bots.map((bot, index) => this.renderBot(bot, index)) }
+        </ol>
+      </Scrollbars>
     </aside>;
   }
 }
+
+function mapStateToProps(state) {
+  return { bots: state.bots };
+}
+
+export default connect(mapStateToProps)(Status);

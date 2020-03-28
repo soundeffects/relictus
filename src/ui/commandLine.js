@@ -9,14 +9,14 @@ class CommandLine extends React.Component {
   
   handleKey = (event) => {
     if (event.key === 'Enter') {
-      const commandLine = this.commandLine.current;
+      const input = this.commandLine.current.value;
       
-      if (commandLine.value !== '') {
-        const { input, respond, time }  = this.props;
+      if (input !== '') {
+        const { sendInput, respond, bots }  = this.props;
         
-        input(time, commandLine.value, true);
-        commandLine.value = '';
-        respond(time);
+        sendInput(input);
+        this.commandLine.current.value = '';
+        respond(input, bots);
       }
     }
   }
@@ -27,12 +27,12 @@ class CommandLine extends React.Component {
 }
 
 function matchStateToProps(state) {
-  return { time: state.time };
+  return { bots: state.bots };
 }
 
 function matchDispatchToProps(dispatch){
   return bindActionCreators(
-    { input: userInput, respond: gameResponse },
+    { sendInput: userInput, respond: gameResponse },
     dispatch
   );
 }

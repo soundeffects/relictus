@@ -26,6 +26,7 @@ aside {
   left: calc(100vw - 12rem);
   background: #060606;
   border-left: 1px solid gray;
+  overflow: hidden;
 }
 
 input {
@@ -43,22 +44,29 @@ input {
   font-size: 1.5em;
 }
 
-ul {
+ul, ol {
   margin: 0;
   padding: 0;
   border: none;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column-reverse;
+  list-style-type: none;
 }
 
-li {
+ul li {
   padding: 10px;
 }
 
 .user {
   color: gray;
+}
+
+.emotive {
+  color: purple;
+}
+
+.error {
+  color: red;
 }
 
 .time {

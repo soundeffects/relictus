@@ -1,8 +1,9 @@
-import Message from '../structure/message';
+import { Message } from '../structure';
+import currentTime from './time';
 
-export default function(time, text) {
+export default function(text) {
   return {
     type: 'USER_INPUT',
-    payload: new Message(time, text, true)
+    payload: new Message(currentTime(), text, 2)
   };
 }

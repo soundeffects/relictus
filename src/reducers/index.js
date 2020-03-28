@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import LogState from './logState';
-import TimeState from './timeState';
+import BotStates from './botStates';
 
 const reducers = combineReducers({
   log: LogState,
-  time: TimeState
+  bots: BotStates
 });
 
 export default reducers;
