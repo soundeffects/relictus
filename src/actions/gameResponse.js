@@ -1,4 +1,4 @@
-import Message from './message';
+import Message from '../structure/message';
 
 export default function(time) {
   return {
