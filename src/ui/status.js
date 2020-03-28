@@ -8,7 +8,7 @@ export default class Status extends React.Component {
       <h2>v0.1 Condor</h2>
       <hr />
       
-      <BotComponent />
+      {/*<BotComponent />*/}
     </aside>;
   }
 }
