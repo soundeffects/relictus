@@ -1,10 +1,12 @@
 export default class Bot {
   #name;
+  #shorthand;
   #modules;
   #location;
   
   constructor(name, location) {
     this.#name = name;
+    this.#shorthand = null;
     this.#modules = [];
     this.#location = location;
   }
@@ -19,6 +21,14 @@ export default class Bot {
   
   get location() {
     return this.#location;
+  }
+  
+  get shorthand() {
+    return this.#shorthand;
+  }
+  
+  set shorthand(value) {
+    this.#shorthand = value;
   }
   
   addModule(module) {
