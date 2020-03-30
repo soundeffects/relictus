@@ -10,6 +10,12 @@ class Status extends React.Component {
   }
   
   renderBot(bot, key) {
+    if (bot.name === 'system') {
+      if (this.props.stage !== 'needs reboot')
+        return [<h1 key={key + '.1'}>RTerm v0.1</h1>, <hr key={key + '.2'} />];
+      return null;
+    }
+    
     const { name, location, modules } = bot;
     
     return <li key={key}>
@@ -22,9 +28,6 @@ class Status extends React.Component {
   
   render() {
     return <aside>
-      <h1>RTerm indev</h1>
-      <hr />
-      
       <Scrollbars style={{ width: '100%', height: '80%' }}>
         <ol>
           { this.props.bots.map((bot, index) => this.renderBot(bot, index)) }
@@ -35,7 +38,7 @@ class Status extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { bots: state.bots };
+  return { bots: state.bots, stage: state.stage };
 }
 
 export default connect(mapStateToProps)(Status);

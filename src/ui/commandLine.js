@@ -12,11 +12,11 @@ class CommandLine extends React.Component {
       const input = this.commandLine.current.value;
       
       if (input !== '') {
-        const { sendInput, respond, bots }  = this.props;
+        const { sendInput, respond, bots, stage }  = this.props;
         
         sendInput(input);
         this.commandLine.current.value = '';
-        respond(input, bots);
+        respond(input, bots, stage);
       }
     }
   }
@@ -27,7 +27,7 @@ class CommandLine extends React.Component {
 }
 
 function matchStateToProps(state) {
-  return { bots: state.bots };
+  return { bots: state.bots, stage: state.stage };
 }
 
 function matchDispatchToProps(dispatch){
