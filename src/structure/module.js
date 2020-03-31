@@ -1,22 +1,16 @@
 export default class Module {
   #name;
   #shorthand;
-  #use;
   #status;
   
-  constructor(name, use, status = 'Operational') {
+  constructor(name, status = 'Operational') {
     this.#name = name;
     this.#shorthand = null;
-    this.#use = use;
     this.#status = status;
   }
   
   get name() {
     return this.#name;
-  }
-  
-  use() {
-    this.#use();
   }
   
   get status() {
@@ -33,5 +27,20 @@ export default class Module {
   
   set shorthand(value) {
     this.#shorthand = value;
+  }
+  
+  // required by all modules
+  use() {
+    return [['text', 'style']];
+  }
+  
+  // required by all modules
+  report() {
+    return ['text', 'style'];
+  }
+  
+  // required by all modules
+  help() {
+    return 'text';
   }
 }

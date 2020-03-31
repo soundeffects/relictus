@@ -23,12 +23,12 @@ export default function(input, bots, stage, newMessage, advanceStage, clearLog, 
       newMessage('Shell process ended.');
       newMessage('You never woke up again. The ship fell into the atmosphere of some planet and you burned up in the process.', 'emotive');
       newMessage('Game over. Your score was: 0', 'emotive');
-      break;
+      return;
       
     case 'help':
     case '?':
       newMessage("The terminal uses grammar following the form of (actor) [action] <parameters...>. The available bots are your actors. Look to the status display to the right to see your available bots.");
-      break;
+      return;
       
     case 'restart':
       newMessage('Restarting terminal...');
@@ -59,7 +59,7 @@ export default function(input, bots, stage, newMessage, advanceStage, clearLog, 
       restOfModules.forEach(module => response += `, ${module.name}`);
       
       newMessage(response);
-      break;
+      return;
     
     case 'report':
     case undefined:
@@ -70,12 +70,10 @@ export default function(input, bots, stage, newMessage, advanceStage, clearLog, 
       
       newMessage(`Report on module statuses for (${bot.name}):`);
       bot.modules.forEach(module => {
-        var formatting = '';
-        if (module.status === 'Compromised') formatting = 'error';
-        if (module.status === 'Damaged') formatting = 'warning';
-        newMessage(`${module.name} - ${module.status}`, formatting);
+        const report = module.report();
+        newMessage(report[0], report[1]);
       });
-      break;
+      return;
     
     case 'shorthand':
       if (shouldHelp(tokens[2], true)) {
@@ -89,16 +87,16 @@ export default function(input, bots, stage, newMessage, advanceStage, clearLog, 
           nameSpaceTaken = true;
       });
       
-      if (['quit', 'exit', 'end', 'restart'].includes(tokens[2]))
+      if (['quit', 'exit', 'end', 'restart', 'shorthand', 'report'].includes(tokens[2]))
         nameSpaceTaken = true;
       
       if (nameSpaceTaken)
-        newMessage(`The name ${tokens[2]} has already been taken by an actor or one of the terminal commands, you may not set this actors shorthand to that name.`);
+        newMessage(`The name '${tokens[2]}' has already been taken by an actor or one of the terminal commands, you may not set this actors shorthand to that name.`);
       else {
         bot.shorthand = tokens[2];
-        newMessage(`Shorthand of (${bot.name}) has been set to ${bot.shorthand}.`);
+        newMessage(`Shorthand of (${bot.name}) has been set to '${bot.shorthand}'.`);
       }
-      break;
+      return;
       
     default:
       bot.modules.forEach(element => {
@@ -109,8 +107,39 @@ export default function(input, bots, stage, newMessage, advanceStage, clearLog, 
       if (module === undefined) {
         newMessage(`Error: unknown action [${tokens[1]}] for actor (${bot.name}). Use '${bot.name} help' to list available actions.`, 'error');
         return;
-      } else {
-        module.use();
       }
   }
+  
+  switch (tokens[2]) {
+    case 'help':
+    case '?':
+      newMessage(module.help());
+      return;
+      
+    case 'shorthand':
+      if (shouldHelp(tokens[3], true)) {
+        newMessage("The parameter <shorthand> indicates a parameter <nickname> and sets this action's shorthand to <nickname>. From then on all commands may refer to this action on this specific actor by <nickname>.");
+        return;
+      }
+      
+      nameSpaceTaken = false;
+      bot.modules.forEach(module => { 
+        if (identify(module, tokens[3]))
+          nameSpaceTaken = true;
+      });
+      if (['quit', 'exit', 'end', 'restart', 'shorthand', 'report'].includes(tokens[3]))
+        nameSpaceTaken = true;
+      
+      if (nameSpaceTaken)
+        newMessage(`The name '${tokens[3]}' has already been taken by an action on this actor or one of the terminal commands, you may not set this action's shorthand to that name.`);
+      else {
+        module.shorthand = tokens[3];
+        newMessage(`Shorthand of [${module.name}] has been set to '${module.shorthand}'.`);
+      }
+      return;
+  }
+  
+  tokens.shift(); tokens.shift();
+  const responses = module.use(tokens);
+  responses.forEach(response => newMessage(response[0], response[1]));
 }

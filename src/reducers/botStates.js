@@ -1,13 +1,14 @@
-import { Bot, Module, rootLocation } from '../structure';
+import { Bot, rootLocation } from '../structure';
+import { LifeSupport, Reactor, Navigation, Communication, Surveillance, Propulsion, Activate } from '../modules';
 
 const system = new Bot('system', rootLocation);
-system.addModule(new Module('Life_Support', 0));
-system.addModule(new Module('Reactor', 0, 'Damaged'));
-system.addModule(new Module('Navigation', 0, 'Compromised'));
-system.addModule(new Module('Communication', 0, 'Compromised'));
-system.addModule(new Module('Surveillance', 0, 'Compromised'));
-system.addModule(new Module('Thrusters', 0, 'Compromised'));
-system.addModule(new Module('Activate', 0, "No active bots detected. Use 'system activate' to find and activate available bots."));
+system.addModule(new LifeSupport());
+system.addModule(new Reactor());
+system.addModule(new Navigation());
+system.addModule(new Communication());
+system.addModule(new Surveillance());
+system.addModule(new Propulsion());
+system.addModule(new Activate());
 
 export default function(state = [system], action) {
   switch (action.type) {

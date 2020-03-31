@@ -33,32 +33,16 @@ export default class Location {
     return this.#port;
   }
   
-  set port(location) {
-    this.#port = location;
-  }
-  
   get starboard() {
     return this.#starboard;
-  }
-  
-  set starboard(location) {
-    this.#starboard = location;
   }
   
   get fore() {
     return this.#fore;
   }
   
-  set fore(location) {
-    this.#fore = location;
-  }
-  
   get aft() {
     return this.#aft;
-  }
-  
-  set aft(location) {
-    this.#aft = location;
   }
   
   addContent(content) {
@@ -69,5 +53,27 @@ export default class Location {
     const i = this.#contents.indexOf(content);
     if (i > -1)
       this.#contents.splice(i, 1);
+  }
+  
+  link(location, direction, oneWay = false) {
+    switch (direction) {
+      default:
+      case 'port':
+        this.#port = location;
+        if (!oneWay) location.link(this, 'starboard', true);
+        break;
+      case 'starboard':
+        this.#starboard = location;
+        if (!oneWay) location.link(this, 'port', true);
+        break;
+      case 'fore':
+        this.#fore = location;
+        if (!oneWay) location.link(this, 'aft', true);
+        break;
+      case 'aft':
+        this.#aft = location;
+        if (!oneWay) location.link(this, 'fore', true);
+        break;
+    }
   }
 }
