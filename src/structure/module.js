@@ -1,20 +1,22 @@
 export default class Module {
   #name;
+  #shorthand;
   #use;
   #status;
   
-  constructor(name, use, status = 2) {
+  constructor(name, use, status = 'Operational') {
     this.#name = name;
+    this.#shorthand = null;
     this.#use = use;
-    this.#status = status; // 0 is errored, 1 is lacking process, 2 is operational
+    this.#status = status;
   }
   
   get name() {
     return this.#name;
   }
   
-  get use() {
-    return this.#use;
+  use() {
+    this.#use();
   }
   
   get status() {
@@ -23,5 +25,13 @@ export default class Module {
   
   set status(value) {
     this.#status = value;
+  }
+  
+  get shorthand() {
+    return this.#shorthand;
+  }
+  
+  set shorthand(value) {
+    this.#shorthand = value;
   }
 }

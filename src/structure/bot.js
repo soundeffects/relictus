@@ -40,15 +40,4 @@ export default class Bot {
     if (i > -1)
       this.#modules.splice(i, 1);
   }
-  
-  act(action) {
-    switch(action) {
-      case 'help':
-        break;
-      case 'reboot':
-        break;
-      case 'report':
-      default:
-    }
-  }
 }
