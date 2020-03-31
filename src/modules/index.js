@@ -5,5 +5,6 @@ import Navigation from './navigation';
 import Propulsion from './propulsion';
 import Reactor from './reactor';
 import Surveillance from './surveillance';
+import BackupBattery from './backupBattery';
 
-export { LifeSupport, Activate, Communication, Navigation, Propulsion, Reactor, Surveillance };
+export { LifeSupport, Activate, Communication, Navigation, Propulsion, Reactor, Surveillance, BackupBattery };
