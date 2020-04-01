@@ -1,9 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Scrollbars from 'react-custom-scrollbars';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
+import { toggleStatus } from '../actions';
 import { flagNames } from '../structure';
 
 class Status extends React.Component {
+  handleClick = event => {
+    this.props.toggleStatus();
+  }
+  
+  renderSystem() {
+    if (this.props.flags.includes(flagNames.RESTARTED)) {
+      return <li key='0'>
+        <h1>RTerm v0.2</h1>
+        <button onClick={this.handleClick}><FontAwesomeIcon icon={faTimes} /></button>
+        <hr />
+      </li>;
+    }
+    return null;
+  }
+  
   renderModule(module, key) {
     return <h3 key={key}>
       {module.name}
@@ -11,11 +31,8 @@ class Status extends React.Component {
   }
   
   renderBot(bot, key) {
-    if (bot.name === 'System') {
-      if (this.props.flags.includes(flagNames.RESTARTED))
-        return [<h1 key={key + '.1'}>RTerm v0.1</h1>, <hr key={key + '.2'} />];
-      return null;
-    }
+    if (bot.name === 'System')
+      return this.renderSystem();
     
     const { name, location, modules } = bot;
     
@@ -28,7 +45,7 @@ class Status extends React.Component {
   }
   
   render() {
-    return <aside>
+    return <aside className={this.props.open ? '' : 'isClosed'} >
       <Scrollbars style={{ width: '100%', height: '80%' }}>
         <ol>
           { this.props.bots.map((bot, index) => this.renderBot(bot, index)) }
@@ -39,7 +56,11 @@ class Status extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { bots: state.bots, flags: state.flags };
+  return { bots: state.bots, flags: state.flags, open: state.statusIsOpen };
 }
 
-export default connect(mapStateToProps)(Status);
+function matchDispatchToProps(dispatch){
+  return bindActionCreators({ toggleStatus: toggleStatus }, dispatch);
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Status);

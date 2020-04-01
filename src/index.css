@@ -18,6 +18,10 @@ main {
   overflow: hidden;
 }
 
+main div div {
+  overflow-x: hidden !important;
+}
+
 aside {
   position: absolute;
   top: 0;
@@ -29,19 +33,68 @@ aside {
   overflow: hidden;
 }
 
-input {
+footer {
   position: absolute;
   bottom: 0;
   left: 0;
+  right: 12rem;
+  border-top: 1px solid gray;
+  background: #060606;
+}
+
+input {
   box-sizing: border-box;
   border: none;
-  border-top: 1px solid gray;
   padding: 0.8em;
-  width: calc(100vw - 12rem);
+  width: 100%;
   color: inherit;
   font-family: inherit;
-  background: #060606;
+  background: transparent;
   font-size: 1.5em;
+}
+
+button {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .isClosed {
+    display: none;
+  }
+  
+  input {
+    width: calc(100vw - 3rem);
+  }
+  
+  button {
+    display: inline;
+    background: transparent;
+    color: inherit;
+    font-size: 2em;
+    border: none;
+  }
+  
+  aside {
+    left: 0;
+    border: none;
+  }
+  
+  main {
+    right: 0;
+  }
+  
+  footer {
+    right: 0;
+  }
+}
+
+h1 {
+  display: inline-block;
+  width: calc(100vw - 3rem);
+}
+
+.spacer {
+  height: 2.5rem;
 }
 
 ul, ol {
@@ -54,10 +107,13 @@ ul, ol {
 }
 
 ul li {
-  padding: 10px;
+  padding: 5px;
 }
 
 .user {
+  margin-top: 16px;
+  border-top: 1px solid #444;
+  padding-top: 10px;
   color: gray;
 }
 

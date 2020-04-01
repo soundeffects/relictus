@@ -30,6 +30,8 @@ export default class Location {
   }
   
   getLocation(direction) {
+    // ESLint keeps warning about no default case, ignoring
+    // eslint-disable-next-line
     switch(direction) {
       case 'p':
       case 'port':

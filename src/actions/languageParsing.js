@@ -40,7 +40,9 @@ export default function(input, bots, flags, newMessage, addFlag, reset, addBot) 
       
       reset();
       tokens = ['system', 'report'];
-      
+    
+    // ESLint keeps warning about no break statement before default, ignoring
+    // eslint-disable-next-line
     default:
       bots.forEach(element => {
         if (identify(element, tokens[0]))
@@ -113,6 +115,8 @@ export default function(input, bots, flags, newMessage, addFlag, reset, addBot) 
       }
   }
   
+  //ESLint keeps warning about no default case, ignoring
+  // eslint-disable-next-line
   switch (tokens[2]) {
     case 'help':
     case '?':

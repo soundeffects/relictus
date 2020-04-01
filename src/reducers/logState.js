@@ -7,7 +7,7 @@ const initLog = [new Message('Revitalizing process complete. User is now active.
 export default function(state = initLog, action) {
   switch (action.type) {
     case 'USER_INPUT':
-      return [...state, action.payload];
+      return [...state, new Message(action.payload, 'user')];
     case 'GAME_RESPONSE':
       if (action.payload.reset)
         return action.payload.messages;
