@@ -1,8 +1,8 @@
-import { Module } from '../structure';
+import { Module } from '../../structure';
 
 export default class Communication extends Module {
   constructor() {
-    super('Communication', 'Compromised');
+    super('Communication', null, 'Compromised');
   }
   
   /*use() {

@@ -9,7 +9,7 @@ export default function(state = initLog, action) {
     case 'USER_INPUT':
       return [...state, action.payload];
     case 'GAME_RESPONSE':
-      if (action.payload.clearLog)
+      if (action.payload.reset)
         return action.payload.messages;
       return [...state, ...action.payload.messages];
     default:

@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import LogState from './logState';
 import BotStates from './botStates';
-import GameStage from './gameStage';
+import Flags from './flags';
 
 const reducers = combineReducers({
   log: LogState,
   bots: BotStates,
-  stage: GameStage
+  flags: Flags
 });
 
 export default reducers;

@@ -1,4 +1,4 @@
-import { Module } from '../structure';
+import { Module } from '../../structure';
 
 export default class LifeSupport extends Module {
   constructor() {

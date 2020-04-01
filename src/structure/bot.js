@@ -23,6 +23,10 @@ export default class Bot {
     return this.#location;
   }
   
+  set location(value) {
+    this.#location = value;
+  }
+  
   get shorthand() {
     return this.#shorthand;
   }

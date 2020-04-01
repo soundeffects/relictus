@@ -1,8 +1,8 @@
-import { Module } from '../structure';
+import { Module } from '../../structure';
 
 export default class Propulsion extends Module {
   constructor() {
-    super('Propulsion', 'Compromised');
+    super('Propulsion', null, 'Compromised');
   }
   
   /*use() {

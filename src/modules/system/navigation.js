@@ -1,8 +1,8 @@
-import { Module } from '../structure';
+import { Module } from '../../structure';
 
 export default class Navigation extends Module {
   constructor() {
-    super('Navigation', 'Damaged');
+    super('Navigation', null, 'Damaged');
   }
   
   /*use() {

@@ -29,20 +29,42 @@ export default class Location {
     return this.#contents;
   }
   
-  get port() {
-    return this.#port;
+  getLocation(direction) {
+    switch(direction) {
+      case 'port':
+        return this.#port;
+      case 'starboard':
+        return this.#starboard;
+      case 'fore':
+        return this.#fore;
+      case 'aft':
+        return this.#aft;
+    }
   }
   
-  get starboard() {
-    return this.#starboard;
-  }
-  
-  get fore() {
-    return this.#fore;
-  }
-  
-  get aft() {
-    return this.#aft;
+  getPathways() {
+    var response = 'There ';
+    var directions = [];
+    
+    if (this.#port) directions = ['port'];
+    if (this.#starboard) directions = [...directions, 'starboard'];
+    if (this.#fore) directions = [...directions, 'fore'];
+    if (this.#aft) directions = [...directions, 'aft'];
+    
+    if (directions.length === 0) response += 'are no pathways from here.';
+    else if (directions.length === 1) response += `is a pathway to ${directions[0]}.`;
+    else if (directions.length === 2) response += `are pathways to ${directions[0]} and to ${directions[1]}.`;
+    else {
+      response += 'are pathways ';
+      directions.forEach((direction, index) => {
+        if (index === directions.length - 1)
+          response += `and to ${direction}.`;
+        else
+          response += `to ${direction}, `
+      });
+    }
+    
+    return response;
   }
   
   addContent(content) {

@@ -1,8 +1,8 @@
-import { Module } from '../structure';
+import { Module } from '../../structure';
 
-export default class LifeSupport extends Module {
+export default class Reactor extends Module {
   constructor() {
-    super('LifeSupport');
+    super('Reactor', null, 'Damaged');
   }
   
   /*use() {
@@ -10,7 +10,7 @@ export default class LifeSupport extends Module {
   }*/
   
   report() {
-    var response = `Life support is ${this.status}.`;
+    var response = `Reactor is ${this.status}.`;
     var style = 'success';
     
     if (this.status.toLowerCase() === 'damaged') {
@@ -22,6 +22,6 @@ export default class LifeSupport extends Module {
   }
   
   help() {
-    return 'Life support keeps nutrients flowing to passengers aboard the ship.';
+    return "The reactor is a series of RTG's used to provide electricity to the ship.";
   }
 }

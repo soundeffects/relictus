@@ -1,9 +1,13 @@
-export default function(input, bots, stage, newMessage, advanceStage, clearLog, addBot) {
+import { flagNames } from '../structure';
+
+export default function(input, bots, flags, newMessage, addFlag, reset, addBot) {
   let tokens = input.match(/\S+/g);
   var bot;
   var module;
   
   function identify(element, token) {
+    if (element.action)
+      return element.action.toLowerCase() === token || (element.shorthand && element.shorthand.toLowerCase() === token);
     return element.name.toLowerCase() === token || (element.shorthand && element.shorthand.toLowerCase() === token);
   }
   
@@ -11,7 +15,7 @@ export default function(input, bots, stage, newMessage, advanceStage, clearLog, 
     return (undefinedIncluded && check === undefined) || check === 'help' || check === '?';
   }
   
-  if (stage === 'needs reboot') {
+  if (!flags.includes(flagNames.RESTARTED)) {
     if(input === 'restart') tokens[0] = input;
     else return;
   }
@@ -34,8 +38,7 @@ export default function(input, bots, stage, newMessage, advanceStage, clearLog, 
       newMessage('Restarting terminal...');
       newMessage("Welcome aboard the Relictus Interplanetary Exploration Vessel! You can access shipwide systems from this terminal.");
       
-      stage = advanceStage('needs reboot');
-      clearLog();
+      reset();
       tokens = ['system', 'report'];
       
     default:
@@ -53,10 +56,10 @@ export default function(input, bots, stage, newMessage, advanceStage, clearLog, 
   switch (tokens[1]) {
     case 'help':
     case '?':
-      var response = `Actions for (${bot.name}): ${bot.modules[0].name}`;
+      var response = `Actions for (${bot.name}): ${bot.modules[0].action}`;
       
       const restOfModules = [...bot.modules]; restOfModules.shift();
-      restOfModules.forEach(module => response += `, ${module.name}`);
+      restOfModules.forEach(module => response += `, ${module.action}`);
       
       newMessage(response);
       return;
@@ -134,12 +137,12 @@ export default function(input, bots, stage, newMessage, advanceStage, clearLog, 
         newMessage(`The name '${tokens[3]}' has already been taken by an action on this actor or one of the terminal commands, you may not set this action's shorthand to that name.`);
       else {
         module.shorthand = tokens[3];
-        newMessage(`Shorthand of [${module.name}] has been set to '${module.shorthand}'.`);
+        newMessage(`Shorthand of [${module.action}] has been set to '${module.shorthand}'.`);
       }
       return;
   }
   
   tokens.shift(); tokens.shift();
-  const responses = module.use(tokens);
+  const responses = module.use(bot, tokens, bots, flags, addFlag, addBot);
   responses.forEach(response => newMessage(response[0], response[1]));
 }

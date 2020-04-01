@@ -1,42 +1,40 @@
 import { Message } from '../structure';
 import languageParsing from './languageParsing';
 
-export default function(input, bots, stage) {
+export default function(input, bots, flags) {
   var messages = [];
-  var newStage = stage;
-  var clearLog = false;
+  var newFlags = [];
+  var reset = false;
   var newBots = [];
   
   function newMessage(text, style = '') {
     messages = [...messages, new Message(text, style)];
   }
   
-  function advanceStage(currentStage, path = 0) {
-    switch(currentStage) {
-      case 'needs reboot':
-        newStage = 'starting out';
-        break;
-      case 'starting out':
-        newStage = 'first bot';
+  function addFlag(flag) {
+    if (!(flags.includes(flag) || newFlags.includes(flag))) {
+      newFlags = [...newFlags, flag];
+      return true;
     }
+    return false;
   }
   
-  function setClearLog() {
-    clearLog = true;
+  function doReset() {
+    reset = true;
   }
   
   function addBot(bot) {
     newBots = [...newBots, bot];
   }
   
-  languageParsing(input.toLowerCase(), bots, stage, newMessage, advanceStage, setClearLog, addBot);
+  languageParsing(input.toLowerCase(), bots, flags, newMessage, addFlag, doReset, addBot);
   
   return {
     type: 'GAME_RESPONSE',
     payload: {
       messages: messages,
-      stage: newStage,
-      clearLog: clearLog,
+      newFlags: newFlags,
+      reset: reset,
       newBots: newBots
     }
   };

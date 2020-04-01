@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Scrollbars from 'react-custom-scrollbars';
+import { flagNames } from '../structure';
 
 class Status extends React.Component {
   renderModule(module, key) {
@@ -10,8 +11,8 @@ class Status extends React.Component {
   }
   
   renderBot(bot, key) {
-    if (bot.name === 'system') {
-      if (this.props.stage !== 'needs reboot')
+    if (bot.name === 'System') {
+      if (this.props.flags.includes(flagNames.RESTARTED))
         return [<h1 key={key + '.1'}>RTerm v0.1</h1>, <hr key={key + '.2'} />];
       return null;
     }
@@ -38,7 +39,7 @@ class Status extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { bots: state.bots, stage: state.stage };
+  return { bots: state.bots, flags: state.flags };
 }
 
 export default connect(mapStateToProps)(Status);

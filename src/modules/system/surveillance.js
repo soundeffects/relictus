@@ -1,8 +1,8 @@
-import { Module } from '../structure';
+import { Module } from '../../structure';
 
 export default class Surveillance extends Module {
   constructor() {
-    super('Surveillance', 'Damaged');
+    super('Surveillance', null, 'Damaged');
   }
   
   /*use() {

@@ -1,10 +1,12 @@
-import LifeSupport from './lifeSupport';
-import Communication from './communication';
-import Activate from './activate';
-import Navigation from './navigation';
-import Propulsion from './propulsion';
-import Reactor from './reactor';
-import Surveillance from './surveillance';
-import BackupBattery from './backupBattery';
+import LifeSupport from './system/lifeSupport';
+import Communication from './system/communication';
+import Activator from './system/activator';
+import Navigation from './system/navigation';
+import Propulsion from './system/propulsion';
+import Reactor from './system/reactor';
+import Surveillance from './system/surveillance';
+import BackupBattery from './system/backupBattery';
+import Wheels from './wheels';
+import Camera from './camera';
 
-export { LifeSupport, Activate, Communication, Navigation, Propulsion, Reactor, Surveillance, BackupBattery };
+export { LifeSupport, Activator, Communication, Navigation, Propulsion, Reactor, Surveillance, BackupBattery, Wheels, Camera };
