@@ -31,40 +31,19 @@ export default class Location {
   
   getLocation(direction) {
     switch(direction) {
+      case 'p':
       case 'port':
         return this.#port;
+      case 's':
       case 'starboard':
         return this.#starboard;
+      case 'f':
       case 'fore':
         return this.#fore;
+      case 'a':
       case 'aft':
         return this.#aft;
     }
-  }
-  
-  getPathways() {
-    var response = 'There ';
-    var directions = [];
-    
-    if (this.#port) directions = ['port'];
-    if (this.#starboard) directions = [...directions, 'starboard'];
-    if (this.#fore) directions = [...directions, 'fore'];
-    if (this.#aft) directions = [...directions, 'aft'];
-    
-    if (directions.length === 0) response += 'are no pathways from here.';
-    else if (directions.length === 1) response += `is a pathway to ${directions[0]}.`;
-    else if (directions.length === 2) response += `are pathways to ${directions[0]} and to ${directions[1]}.`;
-    else {
-      response += 'are pathways ';
-      directions.forEach((direction, index) => {
-        if (index === directions.length - 1)
-          response += `and to ${direction}.`;
-        else
-          response += `to ${direction}, `
-      });
-    }
-    
-    return response;
   }
   
   addContent(content) {
@@ -80,18 +59,22 @@ export default class Location {
   link(location, direction, oneWay = false) {
     switch (direction) {
       default:
+      case 'p':
       case 'port':
         this.#port = location;
         if (!oneWay) location.link(this, 'starboard', true);
         break;
+      case 's':
       case 'starboard':
         this.#starboard = location;
         if (!oneWay) location.link(this, 'port', true);
         break;
+      case 'f':
       case 'fore':
         this.#fore = location;
         if (!oneWay) location.link(this, 'aft', true);
         break;
+      case 'a':
       case 'aft':
         this.#aft = location;
         if (!oneWay) location.link(this, 'fore', true);

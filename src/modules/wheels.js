@@ -6,7 +6,7 @@ export default class Wheels extends Module {
   }
   
   use(actor, parameters, bots, stage, advanceStage, addBot) {
-    if (['port', 'starboard', 'fore', 'aft'].includes(parameters[0])) {
+    if (['port', 'starboard', 'fore', 'aft', 'p', 's', 'f', 'a'].includes(parameters[0])) {
       const destination = actor.location.getLocation(parameters[0]);
       if (!destination) return [['There is no pathway in that direction!', '']];
       
