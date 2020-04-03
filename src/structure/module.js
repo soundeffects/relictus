@@ -41,16 +41,16 @@ export default class Module {
   
   // required by all modules
   use(actor, parameters, bots, stage, advanceStage, addBot) {
-    return [['text', 'style']];
+    return [["This module doesn't have a function!", '']];
   }
   
   // required by all modules
   report() {
-    return ['text', 'style'];
+    return ['Nothing to report.', ''];
   }
   
   // required by all modules
   help() {
-    return 'text';
+    return "This module doesn't have a function.";
   }
 }

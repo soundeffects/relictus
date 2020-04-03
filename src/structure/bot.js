@@ -36,7 +36,7 @@ export default class Bot {
   }
   
   addModule(module) {
-    this.#modules = [...this.#modules, module];
+    this.#modules.push(module);
   }
   
   removeModule(module) {

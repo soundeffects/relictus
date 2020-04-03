@@ -49,7 +49,7 @@ export default class Location {
   }
   
   addContent(content) {
-    this.#contents = [...this.#contents, content];
+    this.#contents.push(content);
   }
   
   removeContent(content) {
