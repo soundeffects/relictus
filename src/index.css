@@ -63,7 +63,7 @@ button {
   }
   
   input {
-    width: calc(100vw - 3rem);
+    width: calc(100vw - 5rem);
   }
   
   button {
