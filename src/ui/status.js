@@ -16,7 +16,7 @@ class Status extends React.Component {
   renderSystem() {
     if (this.props.flags.includes(flagNames.RESTARTED)) {
       return <li key='0'>
-        <h1>RTerm v0.2</h1>
+        <h1>RTerm v0.3</h1>
         <button onClick={this.handleClick}><FontAwesomeIcon icon={faTimes} /></button>
         <hr />
       </li>;

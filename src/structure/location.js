@@ -7,10 +7,10 @@ export default class Location {
   #fore;
   #aft;
   
-  constructor(name, description = 'This room is nondescript.', contents = []) {
+  constructor(name) {
     this.#name = name;
-    this.#description = description;
-    this.#contents = contents;
+    this.#description = 'This room is nondescript.';
+    this.#contents = [];
   }
   
   get name() {

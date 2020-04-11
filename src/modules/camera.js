@@ -19,20 +19,12 @@ export default class Camera extends Module {
       messages.push([loc.description, 'emotive']);
       
       var itemsResponse;
-      var oldItems = [];
       
-      loc.contents.forEach(item => {
-        if (!item.viewed)
-          messages.push([item.description, 'emotive']);
-        else
-          oldItems.push(item);
-      });
-      
-      if (oldItems.length === 1) itemsResponse = `There is a ${oldItems[0].names[0]} in the room.`;
-      else if (oldItems.length === 2) itemsResponse = `There is a ${oldItems[0].names[0]} and a ${oldItems[1].names[0]} in the room.`;
-      else if (oldItems.length > 2) {
+      if (loc.contents.length === 1) itemsResponse = `There is a ${loc.contents[0].names[0]} in the room.`;
+      else if (loc.contents.length === 2) itemsResponse = `There is a ${loc.contents[0].names[0]} and a ${loc.contents[1].names[0]} in the room.`;
+      else if (loc.contents.length > 2) {
         itemsResponse = 'There is a ';
-        oldItems.forEach((item, index) => {
+        loc.contents.forEach((item, index) => {
           if (index === directions.length - 1)
             itemsResponse += `and a ${item.names[0]} in the room.`;
           else
