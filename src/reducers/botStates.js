@@ -1,8 +1,7 @@
-import { Bot } from '../structure';
-import rootLocation from './map';
+import { Bot, Map } from '../structure';
 import { LifeSupport, Reactor, Navigation, Communication, Surveillance, Propulsion, Activator, BackupBattery } from '../modules';
 
-const system = new Bot('System', rootLocation);
+const system = new Bot('System', Map.cpu);
 system.addModule(new LifeSupport());
 system.addModule(new Reactor());
 system.addModule(new Navigation());

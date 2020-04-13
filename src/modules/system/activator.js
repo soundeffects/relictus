@@ -1,5 +1,4 @@
-import { Bot, Module, flagNames } from '../../structure';
-import rootLocation from '../../reducers/map';
+import { Bot, Module, flagNames, Map } from '../../structure';
 import { Wheels, Camera } from '../index';
 
 export default class Activate extends Module {
@@ -9,7 +8,7 @@ export default class Activate extends Module {
   
   use(actor, parameters, bots, flags, addFlag, addBot) {
     if (addFlag(flagNames.FIRST_BOT)) {
-      const firstBot = new Bot('Zero', rootLocation);
+      const firstBot = new Bot('Zero', Map.station);
       firstBot.addModule(new Wheels());
       firstBot.addModule(new Camera());
       addBot(firstBot);

@@ -7,9 +7,9 @@ export default class Location {
   #fore;
   #aft;
   
-  constructor(name) {
-    this.#name = name;
-    this.#description = 'This room is nondescript.';
+  constructor(localizationText) {
+    this.#name = localizationText + '.name';
+    this.#description = localizationText + '.description';
     this.#contents = [];
   }
   
