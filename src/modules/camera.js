@@ -2,7 +2,7 @@ import { Module, flagNames } from '../structure';
 
 export default class Camera extends Module {
   constructor() {
-    super('Camera', 'view');
+    super('modules.camera.name', 'modules.camera.action');
   }
   
   use(actor, parameters, bots, flags, addFlag, addBot) {
@@ -11,28 +11,20 @@ export default class Camera extends Module {
     
     if (parameters[0] === undefined) {
       if (addFlag(flagNames.FIRST_VIEW)) {
-        messages.push([`Viewing the ${loc.name}.`, ''], 
-          ["Suddenly you no longer see the terminal screen, you see a room. This change is not without a bit of a suprised jump on your part, at least if you could jump in your current incorporeal state. It seems like you are currently viewing what the bot sees.", 'emotive']
-        );
+        messages.push(['modules.camera.firstUse', 'emotive']);
       }
       
       messages.push([loc.description, 'emotive']);
       
-      var itemsResponse;
-      
-      if (loc.contents.length === 1) itemsResponse = `There is a ${loc.contents[0].names[0]} in the room.`;
-      else if (loc.contents.length === 2) itemsResponse = `There is a ${loc.contents[0].names[0]} and a ${loc.contents[1].names[0]} in the room.`;
-      else if (loc.contents.length > 2) {
-        itemsResponse = 'There is a ';
+      if (loc.contents.length > 0) {
+        var itemsResponse = 'modules.camera.listItems@';
         loc.contents.forEach((item, index) => {
-          if (index === directions.length - 1)
-            itemsResponse += `and a ${item.names[0]} in the room.`;
-          else
-            itemsResponse += `${item.names[0]}, `;
+          itemsResponse += `${item.names[0]}`;
+          if (index !== directions.length - 1)
+            itemsResponse += item.name;
         });
-      }
-      if (itemsResponse !== undefined)
         messages.push([itemsResponse, '']);
+      }
       
       var pathwaysResponse = 'There ';
       var directions = [];

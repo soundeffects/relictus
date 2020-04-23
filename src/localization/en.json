@@ -5,13 +5,18 @@ export default {
   modules: {
     camera: {
       name: "Camera",
-      action: "view"
+      action: "view",
+      firstUse: "Suddenly you no longer see the terminal screen, you see a room. This change is not without a bit of a suprised \
+      jump on your part, at least if you could jump in your current incorporeal state. It seems like you are currently viewing \
+      what the bot sees.",
+      items: "Items in the room: ",
+      pathways: "Pathways: "
     }
   },
   items: {
     
   },
-  map: {
+  locations: {
     net: {
       name: "Net Device",
       description: "The free space in here is limited. There are various folds of material, wires, and mechanisms packed away. \
