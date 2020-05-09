@@ -4,7 +4,7 @@ export default class Module {
   #shorthand;
   #status;
   
-  constructor(name, action = null, status = 'Operational') {
+  constructor(name, action = null) {
     this.#name = name;
     if (!action) {
       this.#action = name;
@@ -12,7 +12,7 @@ export default class Module {
       this.#action = action;
     }
     this.#shorthand = null;
-    this.#status = status;
+    this.#status = "Operational";
   }
   
   get name() {
@@ -41,16 +41,16 @@ export default class Module {
   
   // required by all modules
   use(actor, parameters, bots, stage, advanceStage, addBot) {
-    return [["This module doesn't have a function!", '']];
+    return ["Error: this module does not have a use. This is likely a bug.", 'error'];
   }
   
   // required by all modules
   report() {
-    return ['Nothing to report.', ''];
+    return ["Error: this module does not have a report function. This is likely a bug.", 'error'];
   }
   
   // required by all modules
   help() {
-    return "This module doesn't have a function.";
+    return "Error: this module does not have help documentation. This is likely a bug."
   }
 }

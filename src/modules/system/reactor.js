@@ -2,7 +2,8 @@ import { Module } from '../../structure';
 
 export default class Reactor extends Module {
   constructor() {
-    super('Reactor', null, 'Damaged');
+    super('Reactor');
+    this.status = "Damaged";
   }
   
   /*use() {

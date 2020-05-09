@@ -2,7 +2,8 @@ import { Module } from '../../structure';
 
 export default class Communication extends Module {
   constructor() {
-    super('Communication', null, 'Compromised');
+    super('Communication');
+    this.status = 'Compromised';
   }
   
   /*use() {

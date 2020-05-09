@@ -1,24 +1,28 @@
-import Lang from './lang';
-
 export default class Location {
-  #langKey;
+  #name;
+  #description;
   #contents;
   #port;
   #starboard;
   #fore;
   #aft;
   
-  constructor(langKey) {
-    this.#langKey = langKey;
+  constructor(name) {
+    this.#name = name;
+    this.#description = "This room is non-descript.";
     this.#contents = [];
   }
   
   get name() {
-    return Lang.locations[langKey].name;
+    return this.#name;
   }
   
   get description() {
-    return Lang.locations[langKey].description;
+    return this.#description;
+  }
+  
+  set description(value) {
+    this.#description = value;
   }
   
   get contents() {

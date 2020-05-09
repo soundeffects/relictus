@@ -2,7 +2,8 @@ import { Module } from '../../structure';
 
 export default class Navigation extends Module {
   constructor() {
-    super('Navigation', null, 'Damaged');
+    super('Navigation');
+    this.status = "Damaged";
   }
   
   /*use() {

@@ -2,7 +2,8 @@ import { Module } from '../../structure';
 
 export default class Surveillance extends Module {
   constructor() {
-    super('Surveillance', null, 'Damaged');
+    super('Surveillance');
+    this.status = "Damaged";
   }
   
   /*use() {

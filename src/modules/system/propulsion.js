@@ -2,7 +2,8 @@ import { Module } from '../../structure';
 
 export default class Propulsion extends Module {
   constructor() {
-    super('Propulsion', null, 'Compromised');
+    super('Propulsion');
+    this.status = "Damaged";
   }
   
   /*use() {
