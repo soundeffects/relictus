@@ -1,7 +1,7 @@
 import { Message } from '../structure';
 
 const initLog = [new Message('Revitalizing process complete. User is now active.', 'success'),
-  new Message("You are concious. Your view is only this terminal you see in front of you now. You aren't at a computer screen; your vision is really only this small rectangular area, which is being fed directly into your brain. You can't feel anything, but you can think. Unfortunately you don't remember much. You had been living in space, joined the crew of a ship bound for interplanetary survey, not much else is clear. Well, time to think about the situation at hand. What can you do?", 'emotive'),
+  new Message("You are concious. The edges of your vision are the edges of this terminal screen. You can't feel anything, but you can think. Unfortunately you don't remember much. You had been living in space, on a magnificent starcraft bound for interstellar travel. But now you must think about the present.", 'emotive'),
   new Message("Unexpected error in bootup, shutting down. Force bootup with user command 'restart'.", 'error')];
 
 export default function(state = initLog, action) {

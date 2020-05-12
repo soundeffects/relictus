@@ -1,4 +1,4 @@
-import { Module, flagNames } from '../structure';
+import { Module, flagNames, Fixture } from '../structure';
 
 export default class Camera extends Module {
   constructor() {
@@ -9,24 +9,19 @@ export default class Camera extends Module {
     const loc = actor.location;
     var messages = [];
     
+    messages.push([`Viewing the ${loc.name}.`, '']);
+    
     if (parameters[0] === undefined) {
       if (addFlag(flagNames.FIRST_VIEW)) {
-        messages.push(["Suddenly you no longer see the terminal screen, you see a room. This change is not without a bit of a suprised jump on your part, at least if you could jump in your current incorporeal state. It seems like you are currently viewing what the bot sees.", 'emotive']);
+        messages.push(["Suddenly you no longer see the terminal screen, you see a room. This change is not without a bit of a suprised jump on your part, at least if you could jump in your current incorporeal state. You see the bot you were controlling, its small body attached to rails on the ground. You also see the room its in.", 'emotive']);
       }
       
       messages.push([loc.description, 'emotive']);
       
-      /* TODO
-      if (loc.contents.length > 0) {
-        var itemsResponse = 'You see a ';
-        loc.contents.forEach((item, index) => {
-          itemsResponse += `${item.names[0]}`;
-          if (index !== directions.length - 1)
-            itemsResponse += item.name;
-        });
-        messages.push([itemsResponse, '']);
-      }
-      */
+      loc.contents.forEach(item => {
+        if (!(item instanceof Fixture))
+          messages.push([item.glance, 'emotive']);
+      });
       
       var pathwaysResponse = 'There ';
       var directions = [];

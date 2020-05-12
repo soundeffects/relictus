@@ -1,5 +1,5 @@
 import { Location } from '../structure';
-import { PaperSlip, BrainTank } from '../items';
+import { PaperSlip } from '../items';
 
 const net = new Location('Net Device');
 const cpu = new Location('Central Processing Unit');
@@ -32,8 +32,34 @@ const nose = new Location('Nose Exterior');
 const tail = new Location('Tail Exterior');
 
 net.description = "The free space in here is limited. There are various folds of material, wires, and mechanisms packed away. You see the flash of sparks every once in a while from a couple of the wires; it appears there are some things in disrepair.";
-cpu.description = "This 'room' is just a cylindrical tunnel with rails for a bot to pass through. On all sides are greyed-out panels, switches, and a few labels marking various named 'processing units.' Snaking through the machinery are a few water pipes.";
-station.description = "In this corner of the cargo bay, there's the frame of a box with open sides. Inside there are various scraps of technology and the damaged carcasses of bots, but all complicated stuff that seems above your pay grade.";
+cpu.description = "This 'room' is just a cylindrical tunnel with rails for a bot to pass through. On all sides are greyed-out panels, switches, and a few labels marking various units of the processor. Snaking through the machinery are a few water pipes.";
+carrier.description = "There are bulky tanks occupying most of the space in the small room, about twenty in total. They're attached to the walls with what looks like coolant pipes. You can see that they're very heavily insulated. Unfortunately a few pipes have been severed and a few tanks look dented, but for the most part this room has escaped serious damage. Most of the pipes lead into the aft wall.";
+scrubber.description = "Pipes leading out from the fore wall make their way into large vats and machinery that take up the space in the corners of the room, out of the way of the doorways on all four sides. These machines look in decent shape. They have labels such as 'Oxygen,' 'Water,' and 'Glucose.'";
+medical.description = "This room, towards the opposite wall of the one you came in throguh, there is a cylindrical apparatus that is hollow and has a sliding hatch to the front. The walls of this apparatus are glass, and you can see that inside it there are three mechanical arms with intricate tools attached to the ends. Pipes lead into this apparatus from the wall with the doorway you came in through. To either side of the apparatus, there are white containers with red cross symbols printed on them.";
+synth.description = "Pipes lead from the doorway you just came through to a large crucible tank to the far end of the room. All kinds of dials are on this crucible, from temperature to pressure to countless others. This crucible extends to the walls of the room on both sides, so there is little space to move around in.";
+cargoFore.description = "Part of the large cargo bay of the ship. The raised cieling makes the whole cargo bay feel rather majestic. As for this section, its rather empty, mainly used as a corridor to get to other sections of the bay.";
+cargoAft.description = "Part of the large cargo bay of the ship. The raised cieling makes the whole cargo bay feel rather majestic. As for this section, its rather empty, mainly used as a corridor to get to other sections of the bay. Unlike the rail at the fore of the cargo bay, the rail to aft is blocked by a small circular portal with a durable looking door.";
+parts.description = "In this corner of the cargo bay, there's a few large aluminum containers that are spilling out assortments of different modular parts, which are now floating everywhere due to the weightlessness of space. These parts come in all shapes, sizes and functions. Unfortunately it doesn't look like they were meant to be spilled, because many of them look more like debris than anything useful.";
+pad.description = "In this corner of the cargo bay there's a raised platform, and two large mechanical arms attached to the cieling are hanging limp over it. What appears to be a solderer and a grasper are attached to these arms. The platform has rails leading to the cargo bay doors.";
+doors.description = "The walls, cieling and floor of the cargo bay slope in a bit until they reach the hatch, taking up most of the wall on this side of the cargo bay. The hatch doors seem tough and imposing.";
+tanks.description = "In this corner of the cargo bay, there's a few long cylinders reaching from floor to cieling. Each is made of shiny metal. Each is labeled, with the text reading along the length of the tube, meaning the text is vertical. This makes it rather difficult to read, but you can make out labels such as 'Soldering Iron,' and 'Control Propellant.'";
+station.description = "In this corner of the cargo bay, there's a large rectangular frame with open sides, attached to the floor. Inside there are various scraps of technology and the damaged carcasses of bots, but all complicated stuff that seems above your pay grade.";
+maintainence.description = "Past the rectangular frame of the Bot Station, there's a small pad tucked away in the back, with a few robotic arms angled to have access to the pad. These arms have different tools attached to the ends, and it looks like these are meant for repairing bots. This is because there's the half finished body of a bot sitting on the pad.";
+lock.description = "A small chamber with white spotless walls and a bright light overhead. There is a small panel to the port wall that is dark, it doesn't appear to be functioning anymore.";
+generator.description = "";
+batteryOne.description = "";
+batteryTwo.description = "";
+reactor.description = "";
+overUpper.description = "";
+starboardUpper.description = "";
+underUpper.description = "";
+portUpper.description = "";
+overLower.description = "";
+starboardLower.description = "";
+underLower.description = "";
+portLower.description = "";
+nose.description = "";
+tail.description = "";
 
 net.link(cpu, 'aft');
 cpu.link(carrier, 'aft');
@@ -85,7 +111,6 @@ portLower.link(tail, 'aft', true);
 tail.link(starboardLower, 'starboard', true);
 starboardLower.link(tail, 'aft', true);
 
-carrier.addContent(new BrainTank());
 station.addContent(new PaperSlip());
 
 export default {

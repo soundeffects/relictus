@@ -3,10 +3,10 @@ import Item from './item';
 export default class Fixture extends Item {
   #blocking;
   
-  constructor(names, description, blocking) {
-    super(names, description);
+  constructor(names) {
+    super(names);
     
-    this.#blocking = blocking;
+    this.#blocking = null;
   }
   
   get blocking() {

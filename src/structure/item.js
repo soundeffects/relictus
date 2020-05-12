@@ -2,13 +2,11 @@ export default class Item {
   #names;
   #glance;
   #description;
-  #viewed;
   
-  constructor(names, description = 'This item is non-descript.', glance = 'There is a non-descript item.') {
+  constructor(names) {
     this.#names = names;
-    this.#description = description;
-    this.#glance = glance;
-    this.#viewed = false;
+    this.#description = 'This item is non-descript.';
+    this.#glance = 'There is a non-descript item.';
   }
   
   get names() {
@@ -26,7 +24,6 @@ export default class Item {
   }
   
   get description() {
-    this.#viewed = true;
     return this.#description;
   }
   
@@ -34,12 +31,12 @@ export default class Item {
     this.#description = value;
   }
   
-  get viewed() {
-    return this.#viewed;
+  get glance() {
+    return this.#glance;
   }
   
-  set viewed(value) {
-    this.#viewed = value;
+  set glance(value) {
+    this.#glance = value;
   }
   
   // required by all items
