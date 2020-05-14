@@ -1,4 +1,5 @@
-import { Bot, Map } from '../structure';
+import { Bot } from '../structure';
+import Map from '../map';
 import { LifeSupport, Reactor, Navigation, Communication, Surveillance, Propulsion, Activator, BackupBattery } from '../modules';
 
 const system = new Bot('System', Map.cpu);

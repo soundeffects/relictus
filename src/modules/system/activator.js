@@ -1,4 +1,5 @@
-import { Bot, Module, flagNames, Map } from '../../structure';
+import { Bot, Module, flagNames } from '../../structure';
+import Map from '../../map';
 import { Wheels, Camera } from '../index';
 
 export default class Activate extends Module {
