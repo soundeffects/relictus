@@ -17,7 +17,6 @@ import BotPad from './fixtures/botPad';
 import BayDoors from './fixtures/bayDoors';
 import ResourceTanks from './fixtures/resourceTanks';
 import StationFrame from './fixtures/stationFrame';
-import DeadBots from './deadBots';
 import BotOne from './botOne';
 
 export {
@@ -40,6 +39,5 @@ export {
   BayDoors,
   ResourceTanks,
   StationFrame,
-  DeadBots,
   BotOne
 };

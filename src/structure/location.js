@@ -54,8 +54,7 @@ export default class Location {
   
   removeContent(content) {
     const i = this.#contents.indexOf(content);
-    if (i > -1)
-      this.#contents.splice(i, 1);
+    if (i > -1) this.#contents.splice(i, 1);
   }
   
   link(location, direction, oneWay = false) {
