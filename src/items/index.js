@@ -5,7 +5,7 @@ import Wires from './fixtures/wires';
 import Processor from './fixtures/processor';
 import Blobs from './blobs';
 import Scrubbers from './fixtures/scrubbers';
-import BrainSurgeon from './fixtures/brainSurgeon';
+import Surgeon from './fixtures/surgeon';
 import HealthContainers from './fixtures/healthContainers';
 import Rails from './fixtures/rails';
 import Synth from './fixtures/synth';
@@ -28,7 +28,7 @@ export {
   Processor,
   Blobs,
   Scrubbers,
-  BrainSurgeon,
+  Surgeon,
   HealthContainers,
   Rails,
   Synth,

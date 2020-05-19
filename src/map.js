@@ -35,7 +35,7 @@ net.description = "The free space in here is limited. There are various folds of
 cpu.description = "This 'room' is just a cylindrical tunnel with rails for a bot to pass through. On all sides are greyed-out panels, switches, and a few labels marking various units of the processor. Snaking through the machinery are a few water pipes.";
 carrier.description = "There are bulky tanks occupying most of the space in the small room, about twenty in total. They're attached to the walls with what looks like coolant pipes. You can see that they're very heavily insulated. Unfortunately a few pipes have been severed, and a few tanks look dented, but for the most part this room has escaped serious damage. Most of the pipes lead into the aft wall.";
 scrubber.description = "Pipes leading out from the fore wall make their way into large vats and machinery that take up the space in the corners of the room, out of the way of the doorways on all four sides. These machines look in decent shape. They have labels such as 'Oxygen,' 'Water,' and 'Glucose.'";
-medical.description = "In this room, towards the opposite wall of the one you came in through, there is a cylindrical apparatus that is hollow and has a sliding hatch to the front. The walls of this apparatus are glass, and you can see that inside it there are three mechanical arms with intricate tools attached to the ends. Pipes lead into this apparatus from the wall with the doorway you came in through. To either side of the apparatus, there are white containers with red cross symbols printed on them.";
+medical.description = "In this room, towards the opposite wall of the one you came in through, there is a cylindrical apparatus that is hollow and has a sliding hatch to the front. The walls of this apparatus are glass, and you can see that inside it there are three mechanical arms with intricate tools attached to the ends. Pipes lead into this apparatus from the wall with the doorway you came in through. To either side of the apparatus, there are white containers fixed to the walls with red cross symbols printed on them.";
 synth.description = "Pipes lead from the doorway you just came through to a large crucible tank to the far end of the room. All kinds of dials are on this crucible, from temperature to pressure to countless others. This crucible extends to the walls of the room on both sides, so there is little space to move around in.";
 cargoFore.description = "Part of the large cargo bay of the ship. The raised cieling makes the whole cargo bay feel rather majestic. As for this section, its rather empty, mainly used as a corridor to get to other sections of the bay.";
 cargoAft.description = "Part of the large cargo bay of the ship. The raised cieling makes the whole cargo bay feel rather majestic. As for this section, its rather empty, mainly used as a corridor to get to other sections of the bay. Unlike the corridor to the fore of the cargo bay, the pathway aft is blocked by a small circular portal with a durable looking door.";
@@ -123,7 +123,7 @@ carrier.addContent(new Items.Rails());
 scrubber.addContent(new Items.Scrubbers());
 scrubber.addContent(new Items.Pipes());
 scrubber.addContent(new Items.Rails());
-medical.addContent(new Items.BrainSurgeon());
+medical.addContent(new Items.Surgeon());
 medical.addContent(new Items.HealthContainers());
 medical.addContent(new Items.Rails());
 synth.addContent(new Items.Synth());
