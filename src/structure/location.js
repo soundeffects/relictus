@@ -57,6 +57,10 @@ export default class Location {
     if (i > -1) this.#contents.splice(i, 1);
   }
   
+  clearContents() {
+    this.#contents = [];
+  }
+  
   link(location, direction, oneWay = false) {
     switch (direction) {
       default:

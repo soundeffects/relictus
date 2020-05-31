@@ -1,11 +1,13 @@
-import { Module, Fixture } from '../structure';
+import { Module, Fixture, flagNames } from '../structure';
+import Map from '../map';
+import { ArmPart } from '../items';
 
 export default class Wheels extends Module {
   constructor() {
     super('Wheels', 'move');
   }
   
-  use(actor, parameters, bots, stage, advanceStage, addBot) {
+  use(actor, parameters, bots, flags, addFlag, addBot) {
     if (['port', 'starboard', 'fore', 'aft', 'p', 's', 'f', 'a'].includes(parameters[0])) {
       const loc = actor.location;
       var hindered = false;
@@ -18,6 +20,11 @@ export default class Wheels extends Module {
       
       const destination = loc.getLocation(parameters[0]);
       if (!destination) return [['There is no pathway in that direction!', '']];
+      
+      if (loc.name === 'Cargo Bay, Lander Parts Storage' && addFlag(flagNames.PART_BUMP)) {
+        Map.pad.addContent(new ArmPart());
+        return [['Your bot has bumped into a floating part as it tried to move.', 'warning']];
+      }
       
       actor.location = destination;
       return [[`Movement successful. (${actor.name}) is now in the ${destination.name}.`, '']];

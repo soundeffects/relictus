@@ -1,7 +1,7 @@
 import { Bot, Module, flagNames } from '../../structure';
 import Map from '../../map';
 import { Wheels, Camera } from '../index';
-
+ 
 export default class Activate extends Module {
   constructor() {
     super('Activator', 'activate');
@@ -16,7 +16,7 @@ export default class Activate extends Module {
       return [['Found 1 available bot(s). Activating now.', 'success']];
     }
     
-    return [['No available bots found.', '']]
+    return [['No available bots found.', '']];
   }
   
   report() {

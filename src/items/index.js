@@ -18,6 +18,7 @@ import BayDoors from './fixtures/bayDoors';
 import ResourceTanks from './fixtures/resourceTanks';
 import StationFrame from './fixtures/stationFrame';
 import BotOne from './botOne';
+import ArmPart from './armPart';
 
 export {
   PaperSlip,
@@ -39,5 +40,6 @@ export {
   BayDoors,
   ResourceTanks,
   StationFrame,
-  BotOne
+  BotOne,
+  ArmPart
 };

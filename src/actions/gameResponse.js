@@ -1,4 +1,5 @@
 import { Message } from '../structure';
+import { resetMap } from '../map';
 import languageParsing from './languageParsing';
 
 export default function(input, bots, flags) {
@@ -20,6 +21,7 @@ export default function(input, bots, flags) {
   }
   
   function doReset() {
+    resetMap();
     reset = true;
   }
   
