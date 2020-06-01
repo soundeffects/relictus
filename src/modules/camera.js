@@ -5,7 +5,7 @@ export default class Camera extends Module {
     super("Camera", "view");
   }
   
-  use(actor, parameters, bots, flags, addFlag, addBot) {
+  use(actor, parameters, bots, flags, addFlag, addBot, addScore) {
     const loc = actor.location;
     var messages = [];
     
@@ -13,6 +13,8 @@ export default class Camera extends Module {
       messages.push([`Viewing the ${loc.name}.`, '']);
       
       if (addFlag(flagNames.FIRST_VIEW)) {
+        addScore(2);
+        
         messages.push(["Suddenly you no longer see the terminal screen, you see a room. This change is not without a bit of a suprised jump on your part, at least if you could jump in your current incorporeal state. You see the bot you were controlling, its small body attached to rails on the ground. You also see the room its in.", 'emotive']);
       }
       
@@ -48,8 +50,10 @@ export default class Camera extends Module {
     } else {
       loc.contents.forEach(item => {
         item.names.forEach(name => {
-          if (name.toLowerCase() === parameters[0].toLowerCase())
+          if (name.toLowerCase() === parameters[0].toLowerCase()) {
+            if (item.names[0] === 'Slip of Paper') addScore(1);
             messages = [[item.description, 'emotive']];
+          }
         });
       });
       

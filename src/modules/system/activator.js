@@ -7,8 +7,10 @@ export default class Activate extends Module {
     super('Activator', 'activate');
   }
   
-  use(actor, parameters, bots, flags, addFlag, addBot) {
+  use(actor, parameters, bots, flags, addFlag, addBot, addScore) {
     if (addFlag(flagNames.FIRST_BOT)) {
+      addScore(1);
+      
       const firstBot = new Bot('Zero', Map.station);
       firstBot.addModule(new Wheels());
       firstBot.addModule(new Camera());

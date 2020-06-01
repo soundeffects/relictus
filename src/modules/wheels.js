@@ -7,7 +7,7 @@ export default class Wheels extends Module {
     super('Wheels', 'move');
   }
   
-  use(actor, parameters, bots, flags, addFlag, addBot) {
+  use(actor, parameters, bots, flags, addFlag, addBot, addScore) {
     if (['port', 'starboard', 'fore', 'aft', 'p', 's', 'f', 'a'].includes(parameters[0])) {
       const loc = actor.location;
       var hindered = false;
@@ -16,12 +16,14 @@ export default class Wheels extends Module {
         if ((item instanceof Fixture) && item.blocking.includes(parameters[0])) hindered = true;
       });
       
-      if (hindered) return [[`(${actor.name}) tried to move in that direction but was blocked.`]];
+      if (hindered) return [[`(${actor.name}) tried to move in that direction but was blocked.`, 'warning']];
       
       const destination = loc.getLocation(parameters[0]);
       if (!destination) return [['There is no pathway in that direction!', '']];
       
       if (loc.name === 'Cargo Bay, Lander Parts Storage' && addFlag(flagNames.PART_BUMP)) {
+        addScore(2);
+        
         Map.pad.addContent(new ArmPart());
         return [['Your bot has bumped into a floating part as it tried to move.', 'warning']];
       }

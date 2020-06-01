@@ -7,6 +7,7 @@ export default function(input, bots, flags) {
   var newFlags = [];
   var reset = false;
   var newBots = [];
+  var score = 0;
   
   function newMessage(text, style = '') {
     messages = [...messages, new Message(text, style)];
@@ -29,7 +30,11 @@ export default function(input, bots, flags) {
     newBots = [...newBots, bot];
   }
   
-  languageParsing(input.toLowerCase(), bots, flags, newMessage, addFlag, doReset, addBot);
+  function addScore(value) {
+    score += value;
+  }
+  
+  languageParsing(input.toLowerCase(), bots, flags, newMessage, addFlag, doReset, addBot, addScore);
   
   return {
     type: 'GAME_RESPONSE',
@@ -37,7 +42,8 @@ export default function(input, bots, flags) {
       messages: messages,
       newFlags: newFlags,
       reset: reset,
-      newBots: newBots
+      newBots: newBots,
+      score: score
     }
   };
 }

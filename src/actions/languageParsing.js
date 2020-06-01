@@ -1,6 +1,6 @@
 import { flagNames } from '../structure';
 
-export default function(input, bots, flags, newMessage, addFlag, reset, addBot) {
+export default function(input, bots, flags, newMessage, addFlag, reset, addBot, addScore) {
   let tokens = input.match(/\S+/g);
   var bot;
   var module;
@@ -147,6 +147,6 @@ export default function(input, bots, flags, newMessage, addFlag, reset, addBot) 
   }
   
   tokens.shift(); tokens.shift();
-  const responses = module.use(bot, tokens, bots, flags, addFlag, addBot);
+  const responses = module.use(bot, tokens, bots, flags, addFlag, addBot, addScore);
   responses.forEach(response => newMessage(response[0], response[1]));
 }
