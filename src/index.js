@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { CommandLine, Log, Status } from './ui';
+import { CommandLine, Log, Status, GameOver } from './ui';
 import reducers from './reducers';
 
 const store = createStore(reducers);
@@ -16,6 +16,7 @@ ReactDOM.render(
       <Log />
       <CommandLine />
       <Status />
+      <GameOver />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

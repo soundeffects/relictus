@@ -24,9 +24,7 @@ export default function(input, bots, flags, newMessage, addFlag, reset, addBot, 
     case 'quit':
     case 'exit':
     case 'end':
-      newMessage('Shell process ended.');
-      newMessage('You never woke up again. The ship fell into the atmosphere of some planet and you burned up in the process.', 'emotive');
-      newMessage('Game over. Your score was: 0', 'emotive');
+      addFlag(flagNames.DEATH_BY_EXIT);
       return;
       
     case 'help':
@@ -37,12 +35,10 @@ export default function(input, bots, flags, newMessage, addFlag, reset, addBot, 
     case 'restart':
       newMessage('Restarting terminal...');
       newMessage("Welcome aboard the Relictus Interplanetary Exploration Vessel! You can access shipwide systems from this terminal.");
-      
+      newMessage("Use 'system report' to view the status of the ship.");
       reset();
-      tokens = ['system', 'report'];
-    
-    // ESLint keeps warning about no break statement before default, ignoring
-    // eslint-disable-next-line
+      return;
+      
     default:
       bots.forEach(element => {
         if (identify(element, tokens[0]))

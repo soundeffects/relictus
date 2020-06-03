@@ -118,19 +118,19 @@ ul li {
 }
 
 .emotive {
-  color: purple;
+  color: #d966ff;
 }
 
 .error {
-  color: red;
+  color: #ff6666;
 }
 
 .warning {
-  color: yellow;
+  color: #ffff66;
 }
 
 .success {
-  color: green;
+  color: #8cff66;
 }
 
 .time {
@@ -143,4 +143,46 @@ ul li {
 p {
   display: inline;
   word-wrap: break-word;
+}
+
+.popup {
+  display: none;
+}
+
+.doDisplay {
+  display: block;
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #111;
+}
+
+.popup h1 {
+  width: 100vw;
+  text-align: center;
+  margin-top: 30vh;
+}
+
+.popup p {
+  display: block;
+  font-size: 1.2rem;
+  width: 100vw;
+  text-align: center;
+}
+
+.popup button {
+  display: block;
+  margin: 0 auto;
+  border: none;
+  background: #333;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.6rem 1rem;
+}
+
+.popup button:hover {
+  background: #444;
 }

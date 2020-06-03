@@ -20,6 +20,8 @@ export default function(state = [newSystemBot()], action) {
     case 'GAME_RESPONSE':
       if (action.payload.reset) return [newSystemBot()];
       return [...state, ...action.payload.newBots];
+    case 'GAME_OVER_RESTART':
+      return [newSystemBot()];
     default:
       return state;
   }

@@ -12,6 +12,8 @@ export default function(state = initLog, action) {
       if (action.payload.reset)
         return action.payload.messages;
       return [...state, ...action.payload.messages];
+    case 'GAME_OVER_RESTART':
+      return action.payload.messages;
     default:
       return state;
   }

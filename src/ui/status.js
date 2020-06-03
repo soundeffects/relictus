@@ -17,7 +17,6 @@ class Status extends React.Component {
     if (this.props.flags.includes(flagNames.RESTARTED)) {
       return <li key='0'>
         <h1>RTerm v0.3</h1>
-        <h4>Score: {this.props.score}</h4>
         <button onClick={this.handleClick}><FontAwesomeIcon icon={faTimes} /></button>
         <hr />
       </li>;
@@ -57,7 +56,7 @@ class Status extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { bots: state.bots, flags: state.flags, open: state.statusIsOpen, score: state.score };
+  return { bots: state.bots, flags: state.flags, open: state.statusIsOpen };
 }
 
 function matchDispatchToProps(dispatch){
