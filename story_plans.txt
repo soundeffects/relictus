@@ -1,0 +1,16 @@
+- Take water from life support and use hydrolosis to create hydrogen fuel for the reactor.
+- The rest of the water put as coolant for the reactor for a bit to gain battery power, then put it back into life support before you die.
+- Burn both main rocket and all lander fuel and finally parachute with the lander to enter atmosphere safely.
+- Set a brain restart program for when you are going into high acceleration/decceleration, so that you don't have any brain damage.
+- Set antimatter consumption rate on thrusters to max, and use it all up for thrust.
+- Fix the solar sail parachute in the net device.
+- Fix the computer section required to control the net device.
+- If you don't fix the solar sail early enough, it will be too late
+- Find more nutrients to put into the synth.
+- You can try to repair the control thrusters on the outside of the ship, but there is no fuel for them anyways.
+- Instead to turn around the ship, you need to construct a crawler bot with a drill attachment and rocket attachment, and you need to be very precise
+- The bot will drill itself into the ship's hull so that it doesn't fall off, and will fire its rocket to move the ship.
+- Create bot one as a tank bot to carry liquid with.
+- Construct lander with useful parts to your survival on the ground to gain more score.
+- Diagnose the ship's problem using the black box in the computer to gain more score.
+- Save the comatose brain to gain more score.

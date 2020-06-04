@@ -1,5 +1,5 @@
-Relictus, a Text Adventure Game.
+#Relictus, a Text Adventure Game.
 
-This is just a dev build, go to relictus.herokuapp.com to play the game.
+Go to (relictus.herokuapp.com) [https://relictus.herokuapp.com] to play.
 
-This is a web-based, text adventure game set in space. You wake up alone on a space ship and need to figure out how to survive.
+You wake up alone on a space ship and need to figure out how to survive.
