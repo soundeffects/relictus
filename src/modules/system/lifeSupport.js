@@ -22,6 +22,6 @@ export default class LifeSupport extends Module {
   }
   
   help() {
-    return 'Life support keeps nutrients flowing to passengers aboard the ship.';
+    return 'Life support keeps nutrients, including water and oxygen, flowing to passengers aboard the ship.';
   }
 }

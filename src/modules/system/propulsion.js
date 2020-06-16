@@ -15,6 +15,6 @@ export default class Propulsion extends Module {
   }
   
   help() {
-    return "The propulsion systems allow the Relictus to change velocity and maneauver.";
+    return "The propulsion systems are built on a fusion-based engine supplemented by antimatter for maximum thrust.";
   }
 }

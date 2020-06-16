@@ -23,6 +23,6 @@ export default class Navigation extends Module {
   }
   
   help() {
-    return "The navigation systems are used to map surrounding objects and relay the Relictus' position.";
+    return "The navigation systems are used to calculate the orbital trajectory of the Relictus and predict what burns the main engine must make to reach a desired trajectory.";
   }
 }

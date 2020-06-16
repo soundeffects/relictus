@@ -15,6 +15,6 @@ export default class Communication extends Module {
   }
   
   help() {
-    return "The communication systems send signals to nearby satellites which relay back to Earth, so that the Relictus can communicate with mission control.";
+    return "Using a device entangled (through quantum physics) with a device back on Earth, the Relictus can communicate instantly with Mission Control, even across lightyears of distance.";
   }
 }

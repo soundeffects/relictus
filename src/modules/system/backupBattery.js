@@ -1,6 +1,6 @@
 import { Module } from '../../structure';
 
-export default class LifeSupport extends Module {
+export default class BackupBattery extends Module {
   constructor() {
     super('BackupBattery');
   }
