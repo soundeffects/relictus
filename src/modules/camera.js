@@ -10,14 +10,13 @@ export default class Camera extends Module {
     var messages = [];
     
     if (parameters[0] === undefined) {
-      messages.push([`Viewing the ${loc.name}.`, '']);
-      
       if (addFlag(flagNames.FIRST_VIEW)) {
         addScore(2);
         
         messages.push(["Suddenly you no longer see the terminal screen, you see a room. This change is not without a bit of a suprised jump on your part, at least if you could jump in your current incorporeal state. You see the bot you were controlling, its small body attached to rails on the ground. You also see the room its in.", 'emotive']);
       }
       
+      messages.push([`Viewing the ${loc.name}.`, '']);
       messages.push([loc.description, 'emotive']);
       
       loc.contents.forEach(item => {
