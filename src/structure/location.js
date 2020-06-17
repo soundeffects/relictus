@@ -29,6 +29,16 @@ export default class Location {
     return this.#contents;
   }
   
+  findItem(name) {
+    this.#contents.forEach(item => {
+      item.names.forEach(itemName => {
+        if (itemName.toLowerCase === name.toLowerCase)
+          return item;
+      });
+    });
+    return null;
+  }
+  
   getLocation(direction) {
     // ESLint keeps warning about no default case, ignoring
     // eslint-disable-next-line
@@ -52,7 +62,8 @@ export default class Location {
     this.#contents.push(content);
   }
   
-  removeContent(content) {
+  removeContent(name) {
+    const content = this.findItem(name);
     const i = this.#contents.indexOf(content);
     if (i > -1) this.#contents.splice(i, 1);
   }

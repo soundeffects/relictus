@@ -8,15 +8,17 @@ export default class Activate extends Module {
   }
   
   use(actor, parameters, bots, flags, addFlag, addBot, addScore) {
-    if (addFlag(flagNames.FIRST_BOT)) {
+    if (addFlag(flagNames.BOT_ZERO)) {
       addScore(1);
       
       const firstBot = new Bot('Zero', Map.station);
       firstBot.addModule(new Wheels());
       firstBot.addModule(new Camera());
       addBot(firstBot);
-      return [['Found 1 available bot(s). Activating now.', 'success']];
+      return [['Found 1 available bot(s). Establishing link and activating.', 'success']];
     }
+    
+    
     
     return [['No available bots found.', '']];
   }

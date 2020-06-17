@@ -2,11 +2,13 @@ export default class Item {
   #names;
   #glance;
   #description;
+  #solderable;
   
   constructor(names) {
     this.#names = names;
     this.#description = 'This item is non-descript.';
     this.#glance = 'There is a non-descript item.';
+    this.#solderable = false;
   }
   
   get names() {
@@ -37,6 +39,14 @@ export default class Item {
   
   set glance(value) {
     this.#glance = value;
+  }
+  
+  get solderable() {
+    return this.#solderable;
+  }
+  
+  set solderable(value) {
+    this.#solderable = value;
   }
   
   // required by all items
