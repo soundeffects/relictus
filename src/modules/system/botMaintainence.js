@@ -1,9 +1,9 @@
 import { Module, flagNames, SolderedItem } from '../../structure';
 import Map from '../../map';
  
-export default class Constructors extends Module {
+export default class BotMaintainence extends Module {
   constructor() {
-    super('Constructors', 'construct');
+    super('Bot Maintainence', 'bot-pad');
   }
   
   use(actor, parameters, bots, flags, addFlag, addBot, addScore) {
@@ -36,9 +36,6 @@ export default class Constructors extends Module {
     } else if (parameters[0] === 'bot') {
       if (parameters[1] === 'solder') {
         if (Map.station.contents.length > 1) {
-          var itemOne;
-          var itemTwo;
-          
           Map.station.contents.forEach(item => {
             if (item.solderable) {
               if (!itemOne)
@@ -55,7 +52,7 @@ export default class Constructors extends Module {
           });
         }
         
-        return [["No suitable items to solder detected.", '']]
+        return [["No suitable items to solder detected.", '']];
       } else if (parameters[1] === 'repair') {
         if (Map.station.findItem("Bot One")) {
           return [["There is currently a build in progress on the maintainence pad. Please finish the build to free the pad before using the 'repair' parameter.", 'warning']];
@@ -72,6 +69,8 @@ export default class Constructors extends Module {
         
         return [["The parts scanned by the constructor at the bot maintainence pad are not compatible for constructing a bot. The option to solder them together remains. In order to do so, add the parameter 'solder' at the end of your command.", 'warning']];
       }
+    } else if (parameters[0]) {
+      return [[`Parameter '${parameters[0]}' is not valid. See 'system construct help' for more information.`, 'error']];
     }
     
     return [['Construction successful.', 'success']];
