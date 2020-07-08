@@ -10,11 +10,11 @@ const synth = new Location('Nutrient Synthesizer');
 const cargoFore = new Location('Cargo Bay, Fore');
 const cargoAft = new Location('Cargo Bay, Aft');
 const parts = new Location('Cargo Bay, Lander Parts Storage');
-const pad = new Location('Cargo Bay, Lander Pad');
+const pad = new Location('Cargo Bay, Construction Pad');
 const doors = new Location('Cargo Bay Doors');
 const tanks = new Location('Cargo Bay, Resource Tanks');
 const station = new Location('Cargo Bay, Bot Station');
-const maintainence = new Location('Cargo Bay, Bot Maintainence');
+const maintenance = new Location('Cargo Bay, Maintenance Pad');
 const lock = new Location('Heat Lock Access Point');
 const generator = new Location('Generator');
 const batteryOne = new Location('Battery One');
@@ -45,7 +45,7 @@ cargoFore.link(cargoAft, 'aft');
 pad.link(cargoAft, 'starboard');
 doors.link(pad, 'starboard');
 station.link(cargoAft, 'port');
-maintainence.link(station, 'port');
+maintenance.link(station, 'port');
 cargoAft.link(lock, 'aft');
 lock.link(generator, 'aft');
 batteryOne.link(generator, 'starboard');
@@ -95,7 +95,7 @@ function resetDescriptions() {
   doors.description = "The walls, cieling and floor of the cargo bay slope converge as they reach a giant doorway, taking up most of the wall on this side of the cargo bay. The sliding doors seem tough and imposing.";
   tanks.description = "In this corner of the cargo bay, there's a few long cylinders reaching from floor to cieling. Each is made of shiny metal. Each is labeled, with the text reading along the length of the tube, meaning the text is vertical. This makes it rather difficult to read, but you can make out labels such as 'Soldering Iron,' and 'Control Propellant.'";
   station.description = "In this corner of the cargo bay, there's a large rectangular frame with open sides, attached to the floor. Inside there are various scraps of technology and the damaged carcasses of bots, but all complicated stuff that seems above your pay grade.";
-  maintainence.description = "Past the rectangular frame of the Bot Station, there's a small pad tucked away in the back, with a few robotic arms, equipped with various tools, angled to have access to the pad.";
+  maintenance.description = "Past the rectangular frame of the Bot Station, there's a small pad tucked away in the back, with a few robotic arms, equipped with various tools, angled to have access to the pad.";
   lock.description = "A small chamber with white spotless walls and a bright light overhead. There is a small panel to the port wall that is dark, it doesn't appear to be functioning anymore.";
   generator.description = "";
   batteryOne.description = "";
@@ -159,7 +159,7 @@ function resetContents() {
   parts.addContent(new Items.Rails());
   
   pad.clearContents();
-  pad.addContent(new Items.LanderPad());
+  pad.addContent(new Items.ConstructionPad());
   pad.addContent(new Items.Rails());
   
   doors.clearContents();
@@ -176,10 +176,9 @@ function resetContents() {
   station.addContent(new Items.PaperSlip());
   station.addContent(new Items.Rails());
   
-  maintainence.clearContents();
-  maintainence.addContent(new Items.BotPad());
-  maintainence.addContent(new Items.BotOne());
-  maintainence.addContent(new Items.Rails());
+  maintenance.clearContents();
+  maintenance.addContent(new Items.MaintenancePad());
+  maintenance.addContent(new Items.Rails());
 }
 
 resetContents();
@@ -198,7 +197,7 @@ export default {
   doors,
   tanks,
   station,
-  maintainence,
+  maintenance,
   lock,
   generator,
   batteryOne,

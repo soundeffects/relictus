@@ -39,9 +39,16 @@ export default class Module {
     this.#shorthand = value;
   }
   
+  checkLocked(actor, parameters, bots, flags, addFlag, addBot, addScore) {
+    if (!actor.locked) {
+      return this.use(actor, parameters, bots, flags, addFlag, addBot, addScore);
+    }
+    return [["Error: this bot is not responding to attempted connections.", 'error']];
+  }
+  
   // required by all modules
-  use(actor, parameters, bots, stage, advanceStage, addBot) {
-    return ["Error: this module does not have a use. This is likely a bug.", 'error'];
+  use(actor, parameters, bots, flags, addFlag, addBot, addScore) {
+    return [["Error: this module does not have a use. This is likely a bug.", 'error']];
   }
   
   // required by all modules

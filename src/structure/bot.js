@@ -3,12 +3,14 @@ export default class Bot {
   #shorthand;
   #modules;
   #location;
+  #locked;
   
   constructor(name, location) {
     this.#name = name;
     this.#shorthand = null;
     this.#modules = [];
     this.#location = location;
+    this.#locked = false;
   }
   
   get name() {
@@ -33,6 +35,14 @@ export default class Bot {
   
   set shorthand(value) {
     this.#shorthand = value;
+  }
+  
+  get locked() {
+    return this.#locked;
+  }
+  
+  toggleLocked() {
+    this.#locked = !this.#locked;
   }
   
   addModule(module) {

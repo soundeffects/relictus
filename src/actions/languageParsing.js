@@ -143,6 +143,6 @@ export default function(input, bots, flags, newMessage, addFlag, reset, addBot, 
   }
   
   tokens.shift(); tokens.shift();
-  const responses = module.use(bot, tokens, bots, flags, addFlag, addBot, addScore);
+  const responses = module.checkLocked(bot, tokens, bots, flags, addFlag, addBot, addScore);
   responses.forEach(response => newMessage(response[0], response[1]));
 }

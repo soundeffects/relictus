@@ -5,8 +5,8 @@ import Propulsion from './system/propulsion';
 import Reactor from './system/reactor';
 import Surveillance from './system/surveillance';
 import BackupBattery from './system/backupBattery';
-import LanderConstruction from './system/landerConstruction';
-import BotMaintainence from './system/botMaintainence';
+import Construction from './system/construction';
+import Maintenance from './system/maintenance';
 import Wheels from './wheels';
 import Camera from './camera';
 
@@ -18,8 +18,8 @@ export {
   Reactor,
   Surveillance,
   BackupBattery,
-  LanderConstruction,
-  BotMaintainence,
+  Construction,
+  Maintenance,
   Wheels,
   Camera
 };

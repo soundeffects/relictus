@@ -12,8 +12,8 @@ import Synth from './fixtures/synth';
 import Lock from './fixtures/lock';
 import PartContainers from './fixtures/partContainers';
 import PartDebris from './fixtures/partDebris';
-import LanderPad from './fixtures/landerPad';
-import BotPad from './fixtures/botPad';
+import ConstructionPad from './fixtures/constructionPad';
+import MaintenancePad from './fixtures/maintenancePad';
 import BayDoors from './fixtures/bayDoors';
 import ResourceTanks from './fixtures/resourceTanks';
 import StationFrame from './fixtures/stationFrame';
@@ -35,8 +35,8 @@ export {
   Lock,
   PartContainers,
   PartDebris,
-  LanderPad,
-  BotPad,
+  ConstructionPad,
+  MaintenancePad,
   BayDoors,
   ResourceTanks,
   StationFrame,
