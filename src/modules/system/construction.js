@@ -7,41 +7,38 @@ export default class Construction extends Module {
   constructor() {
     super('Construction Pad', 'construction');
     this.#lockedBot = null;
+    this.status = 'Standby';
   }
   
   use(actor, parameters, bots, flags, addFlag, addBot, addScore) {
-    if (parameters[1]) {
-      const part = Map.pad.findItem(parameters[1]);
-      
-      if (!part) return [[`No part found matching the name '${parameters[1]}'.`, 'error']];
-      
-      return [['Constructing...', '']];
-    } else if (this.#lockedBot) {
-      this.#lockedBot.toggleLocked();
-      const botName = this.#lockedBot.name;
-      this.#lockedBot = null;
-      return [
-        [`(${botName}) has been unlocked.`, ''],
-        ['Warning: this bot does not have suitable parts installed in order to serve as a lander.', 'warning']
-      ];
+    if (parameters[0]) {
+      return [['Error: part not found at the pad matching that description.', 'error']]
     } else {
-      bots.forEach(bot => {
-        if (bot.location === Map.pad) {
-          this.#lockedBot = bot;
-          bot.toggleLocked();
-          return [[`(${bot.name}) has been locked into the Lander Construction Pad. Construction ready.`, '']];
-        }
-      });
-      
-      return [['No bots found at the Lander Construction Pad.', 'warning']];
+      if (this.#lockedBot) {
+        this.#lockedBot.toggleLocked();
+        this.#lockedBot = null;
+        return [['Construction Pad has been unlocked.', '']];
+      } else {
+        bots.forEach(bot => {
+          if (bot.location === Map.pad) {
+            this.#lockedBot = bot;
+            bot.toggleLocked();
+            return [[`(${bot.name}) has been locked into the Construction Pad. Ready to install parts.`, '']];
+          }
+        });
+        return [['No bots found near the Construction Pad.', 'error']];
+      }
     }
   }
   
   report() {
-    return ['The Lander Construction Pad is operational. Currently on standby.', ''];
+    if (this.status === 'In Process') {
+      return ['A bot is currently locked into the Construction Pad. Ready to install parts.', ''];
+    }
+    return ['The Construction Pad is operational. Currently on standby.', ''];
   }
   
   help() {
-    return "To use the Lander Construction Pad, you must lock a bot into the pad. This bot will be transformed, through the addition of specific parts, into a lander. Simply use the [lander-pad] action to first lock a bot into the Lander Construction Pad, then use [lander-pad] again with the name of the part you would like to attach and the Construction Pad will automatically scan and install the specified part. Note that the part must be present at the pad for the process to succeed.";
+    return "The Construction Pad is used for installing new parts onto Bots and Landers. You must lock a bot into the pad in order to install new parts. To do this use the action [construction] with no parameters and make sure a bot is next to the the pad. To unlock the bot is the same. To install parts simply use the same action with the name of the part you wish to install as a parameter.";
   }
 }

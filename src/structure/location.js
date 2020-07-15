@@ -39,6 +39,12 @@ export default class Location {
     return null;
   }
   
+  popItem(name) {
+    const item = this.findItem(name);
+    this.removeContent(name);
+    return item;
+  }
+  
   getLocation(direction) {
     // ESLint keeps warning about no default case, ignoring
     // eslint-disable-next-line

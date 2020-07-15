@@ -17,7 +17,7 @@ import MaintenancePad from './fixtures/maintenancePad';
 import BayDoors from './fixtures/bayDoors';
 import ResourceTanks from './fixtures/resourceTanks';
 import StationFrame from './fixtures/stationFrame';
-import BotOne from './botOne';
+import BotCore from './botCore';
 import ArmPart from './armPart';
 
 export {
@@ -40,6 +40,6 @@ export {
   BayDoors,
   ResourceTanks,
   StationFrame,
-  BotOne,
+  BotCore,
   ArmPart
 };
