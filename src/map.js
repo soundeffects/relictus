@@ -178,6 +178,7 @@ function resetContents() {
   
   maintenance.clearContents();
   maintenance.addContent(new Items.MaintenancePad());
+  maintenance.addContent(new Items.BotCore());
   maintenance.addContent(new Items.Rails());
 }
 

@@ -30,13 +30,15 @@ export default class Location {
   }
   
   findItem(name) {
+    var returnItem = null;
     this.#contents.forEach(item => {
       item.names.forEach(itemName => {
-        if (itemName.toLowerCase === name.toLowerCase)
-          return item;
+        if (itemName.toLowerCase() === name.toLowerCase()) {
+          returnItem = item;
+        }
       });
     });
-    return null;
+    return returnItem;
   }
   
   popItem(name) {
