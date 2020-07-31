@@ -9,6 +9,7 @@ import Construction from './system/construction';
 import Maintenance from './system/maintenance';
 import Wheels from './wheels';
 import Camera from './camera';
+import Grasper from './grasper';
 
 export {
   LifeSupport,
@@ -21,5 +22,6 @@ export {
   Construction,
   Maintenance,
   Wheels,
-  Camera
+  Camera,
+  Grasper
 };

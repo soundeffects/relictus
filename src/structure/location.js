@@ -30,6 +30,7 @@ export default class Location {
   }
   
   findItem(name) {
+    if (!name) return null;
     var returnItem = null;
     this.#contents.forEach(item => {
       item.names.forEach(itemName => {
@@ -39,12 +40,6 @@ export default class Location {
       });
     });
     return returnItem;
-  }
-  
-  popItem(name) {
-    const item = this.findItem(name);
-    this.removeContent(name);
-    return item;
   }
   
   getLocation(direction) {
@@ -70,10 +65,11 @@ export default class Location {
     this.#contents.push(content);
   }
   
-  removeContent(name) {
-    const content = this.findItem(name);
+  removeContent(content) {
+    if (content.constructor === String) content = this.findItem(content);
     const i = this.#contents.indexOf(content);
     if (i > -1) this.#contents.splice(i, 1);
+    return content;
   }
   
   clearContents() {

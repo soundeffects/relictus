@@ -11,7 +11,7 @@ export default class Maintenance extends Module {
   use(actor, parameters, bots, flags, addFlag, addBot, addScore) {
     if (parameters[0] === 'activate') {
       
-      const botCore = Map.maintenance.popItem('Bot Core');
+      const botCore = Map.maintenance.removeContent('Bot Core');
       
       if (botCore) {
         this.status = 'Operational';

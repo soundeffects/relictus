@@ -50,8 +50,20 @@ export default class Bot {
   }
   
   removeModule(module) {
+    if (module.constructor === String) module = this.findModule(module);
     const i = this.#modules.indexOf(module);
-    if (i > -1)
-      this.#modules.splice(i, 1);
+    if (i > -1) this.#modules.splice(i, 1);
+    return module;
+  }
+  
+  findModule(name) {
+    if (!name) return null;
+    var returnModule = null;
+    this.#modules.forEach(module => {
+      if (module.name.toLowerCase() === name.toLowerCase()) {
+        returnModule = module;
+      }
+    });
+    return returnModule;
   }
 }
