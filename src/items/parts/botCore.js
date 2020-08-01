@@ -1,4 +1,4 @@
-import { Item } from '../structure';
+import { Item } from '../../structure';
 
 export default class BotCore extends Item {
   constructor() {

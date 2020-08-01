@@ -35,7 +35,7 @@ export default class Wheels extends Module {
   }
   
   report() {
-    var response = `Wheels are ${this.status}. Wheels linked to action [move].`;
+    var response = `Wheels are ${this.status.toLowerCase()}. Wheels linked to action [move].`;
     
     return [response, ''];
   }

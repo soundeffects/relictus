@@ -64,7 +64,7 @@ export default class Camera extends Module {
   }
   
   report() {
-    var response = `Camera is ${this.status}. Camera linked to action [view].`;
+    var response = `Camera is ${this.status.toLowerCase()}. Camera linked to action [view].`;
     
     return [response, ''];
   }

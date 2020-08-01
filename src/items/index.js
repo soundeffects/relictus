@@ -17,8 +17,11 @@ import MaintenancePad from './fixtures/maintenancePad';
 import BayDoors from './fixtures/bayDoors';
 import ResourceTanks from './fixtures/resourceTanks';
 import StationFrame from './fixtures/stationFrame';
-import BotCore from './botCore';
-import ArmPart from './armPart';
+import BotCore from './parts/botCore';
+import ArmPart from './parts/arm';
+import CameraPart from './parts/camera';
+import WheelsPart from './parts/wheels';
+
 
 export {
   PaperSlip,
@@ -41,5 +44,7 @@ export {
   ResourceTanks,
   StationFrame,
   BotCore,
-  ArmPart
+  ArmPart,
+  CameraPart,
+  WheelsPart
 };

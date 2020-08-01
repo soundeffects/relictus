@@ -26,7 +26,7 @@ class Status extends React.Component {
   
   renderModule(module, key) {
     return <h3 key={key}>
-      {module.name}
+      {module.name} - {module.status}
     </h3>;
   }
   

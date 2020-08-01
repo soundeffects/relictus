@@ -1,7 +1,7 @@
 import { Module } from '../../structure';
 import Map from '../../map';
-import { ArmPart } from '../../items';
-import { Grasper } from '..';
+import { ArmPart, CameraPart, WheelsPart } from '../../items';
+import { Grasper, Camera, Wheels } from '..';
  
 export default class Construction extends Module {
   #lockedBot;
@@ -73,6 +73,14 @@ export default class Construction extends Module {
         return new Grasper();
       case Grasper:
         return new ArmPart();
+      case CameraPart:
+        return new Camera();
+      case Camera:
+        return new CameraPart();
+      case WheelsPart:
+        return new Wheels();
+      case Wheels:
+        return new WheelsPart();
       default:
         return null;
     }
