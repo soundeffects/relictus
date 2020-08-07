@@ -4,6 +4,6 @@ export default {
   FIRST_VIEW: 2,
   DEATH_BY_EXIT: 3,
   ARM_BUMP: 4,
-  BOT_ONE_READY: 5,
-  BOT_ONE_CONSTRUCTED: 6
+  VIEW_PAPER: 5,
+  ARM_INSTALL: 6
 };

@@ -119,6 +119,7 @@ function resetContents() {
   net.clearContents();
   net.addContent(new Items.Wires());
   net.addContent(new Items.Rails());
+  net.addContent(new Items.BotCore());
   
   cpu.clearContents();
   cpu.addContent(new Items.Processor());

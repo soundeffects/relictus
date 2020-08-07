@@ -1,4 +1,4 @@
-import { Module } from '../../structure';
+import { Module, flagNames } from '../../structure';
 import Map from '../../map';
 import { ArmPart, CameraPart, WheelsPart } from '../../items';
 import { Grasper, Camera, Wheels } from '..';
@@ -34,6 +34,7 @@ export default class Construction extends Module {
       const module = this.moduleItemMap(item);
       if (!module) return [['Error: this part cannot be installed onto a bot.', 'error']];
       
+      if (module.name === "Grasper" && addFlag(flagNames.ARM_INSTALL)) addScore(2); 
       this.#lockedBot.addModule(module);
       Map.pad.removeContent(item);
       return [['Part installed successfully.', '']];

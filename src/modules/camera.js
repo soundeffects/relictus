@@ -50,7 +50,7 @@ export default class Camera extends Module {
       loc.contents.forEach(item => {
         item.names.forEach(name => {
           if (name.toLowerCase() === parameters[0].toLowerCase()) {
-            if (item.names[0] === 'Slip of Paper') addScore(1);
+            if (item.names[0] === 'Slip of Paper' && addFlag(flagNames.VIEW_PAPER)) addScore(1);
             messages = [[item.description, 'emotive']];
           }
         });
