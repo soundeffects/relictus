@@ -29,7 +29,7 @@ export default function(input, bots, flags, newMessage, addFlag, reset, addBot, 
       
     case 'help':
     case '?':
-      newMessage("The terminal uses grammar following the form of (actor) [action] <parameters...>. The available bots are your actors. Each will have their own set of actions, some requiring parameters to direct how they are performed.");
+      newMessage("The terminal uses grammar following the form of (actor) [action] <parameters...>. The system and the available bots are your actors. Each will have their own set of actions, some requiring parameters to direct how they are performed.");
       newMessage("Note that 'help' can be added after an actor or action to learn more.");
       if (bots.length > 1) {
         newMessage("Look to the status display to see your available bots.");

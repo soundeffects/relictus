@@ -1,6 +1,6 @@
 import { Bot } from '../structure';
 import Map from '../map';
-import { LifeSupport, Reactor, Navigation, Communication, Surveillance, Propulsion, BackupBattery, Construction, Maintenance } from '../modules';
+import { LifeSupport, Reactor, Navigation, Communication, Propulsion, BackupBattery, Construction, Maintenance } from '../modules';
 
 function newSystemBot() {
   const system = new Bot('System', Map.cpu);
@@ -8,7 +8,6 @@ function newSystemBot() {
   system.addModule(new Reactor());
   system.addModule(new Navigation());
   system.addModule(new Communication());
-  system.addModule(new Surveillance());
   system.addModule(new Propulsion());
   system.addModule(new BackupBattery());
   system.addModule(new Construction());

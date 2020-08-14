@@ -3,7 +3,6 @@ import Communication from './system/communication';
 import Navigation from './system/navigation';
 import Propulsion from './system/propulsion';
 import Reactor from './system/reactor';
-import Surveillance from './system/surveillance';
 import BackupBattery from './system/backupBattery';
 import Construction from './system/construction';
 import Maintenance from './system/maintenance';
@@ -17,7 +16,6 @@ export {
   Navigation,
   Propulsion,
   Reactor,
-  Surveillance,
   BackupBattery,
   Construction,
   Maintenance,

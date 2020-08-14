@@ -18,7 +18,7 @@ export default class Grasper extends Module {
         const item = actor.location.findItem(parameters[1]);
         if (!item)
           return [['Error: no item was found matching that description.', 'error']];
-        if (item instanceof Fixture)
+        if (item instanceof Fixture || !item.tangible)
           return [['Error: this item cannot be picked up.', 'error']];
           
         this.#heldItem = actor.location.removeContent(item);
@@ -35,8 +35,19 @@ export default class Grasper extends Module {
       return [['Dropped item.']];
     } else if (['use', 'u'].includes(parameters[0])) {
       if (['help', '?'].includes(parameters[1]))
-        return [["The 'use' function instructs the arm to use an item. A number of basic uses have been pre-programmed into this module, such as flipping switches, connecting cable endpoints, and other trivial tasks. Simply specify the item you would like to use and the program will automatically perform a common action (if there is one) associated with the described item.", '']];
-      return [["Error: missing functionality. It is likely that this module has been damaged."]];
+        return [["The 'use' function instructs the arm to use an item. A number of basic uses have been pre-programmed into this module, such as flipping switches, connecting cable endpoints, and other trivial tasks. Simply specify the item you would like to use and the program will automatically perform a common action (if there is one) associated with the described item. If no item is described, the arm will use whatever it is currently holding.", '']];
+      else if (parameters[1]) {
+        var item;
+        if (this.#heldItem && this.#heldItem.names.includes(parameters[1]))
+          item = this.#heldItem;
+        else
+          item = actor.location.findItem(parameters[1]);
+        
+        if (!item) return [['Error: no item was found matching that description.', 'error']];
+        
+        return item.use(actor, parameters, bots, flags, addFlag, addScore);
+      }
+      return 
     } else if (['view', 'v'].includes(parameters[0])) {
       if (['help', '?'].includes(parameters[1]))
         return [["The 'view' function will return examinations conducted on the object held in the grasper by some small observational units installed on this module. It will throw an error if there is no currently held item."]];
