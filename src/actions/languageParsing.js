@@ -1,4 +1,6 @@
-import { flagNames } from '../structure';
+import { flagNames, Bot } from '../structure';
+import * as Modules from '../modules';
+import Map from '../map';
 
 export default function(input, bots, flags, newMessage, addFlag, reset, addBot, addScore) {
   let tokens = input.match(/\S+/g);
@@ -46,6 +48,32 @@ export default function(input, bots, flags, newMessage, addFlag, reset, addBot, 
       reset();
       return;
       
+    
+    case 'godbot':
+      const dev = true;
+      
+      if (dev && addFlag(flagNames.GODBOT)) {
+        newMessage("I see you are a god-like user. It is only fitting that you are awarded a god-like bot.", 'warning');
+        const godBot = new Bot('GodBot', Map.carrier);
+        godBot.shorthand = 'g';
+        const tank = new Modules.Tank();
+        tank.shorthand = 't';
+        const grasper = new Modules.Grasper();
+        grasper.shorthand = 'a';
+        const wheel = new Modules.Wheels();
+        wheel.shorthand = 'm';
+        const camera = new Modules.Camera();
+        camera.shorthand = 'v';
+        godBot.addModule(tank);
+        godBot.addModule(grasper);
+        godBot.addModule(wheel);
+        godBot.addModule(camera);
+        addBot(godBot);
+        return;
+      }
+    
+    // Fall-through is intentional here, but eslint complains about it
+    // eslint-disable-next-line
     default:
       bots.forEach(element => {
         if (identify(element, tokens[0]))

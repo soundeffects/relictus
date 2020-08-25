@@ -1,7 +1,7 @@
 import { Module, flagNames } from '../../structure';
 import Map from '../../map';
-import { ArmPart, CameraPart, WheelsPart } from '../../items';
-import { Grasper, Camera, Wheels } from '..';
+import { ArmPart, CameraPart, WheelsPart, TankPart } from '../../items';
+import { Grasper, Camera, Wheels, Tank } from '..';
  
 export default class Construction extends Module {
   #lockedBot;
@@ -82,6 +82,10 @@ export default class Construction extends Module {
         return new Wheels();
       case Wheels:
         return new WheelsPart();
+      case TankPart:
+        return new Tank();
+      case Tank:
+        return new TankPart();
       default:
         return null;
     }

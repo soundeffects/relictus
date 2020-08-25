@@ -168,6 +168,7 @@ function resetContents() {
   doors.addContent(new Items.Rails());
   
   tanks.clearContents();
+  tanks.addContent(new Items.TankPart());
   tanks.addContent(new Items.ResourceTanks());
   tanks.addContent(new Items.Rails());
   

@@ -6,7 +6,14 @@ export default class Tank extends Module {
   }
   
   use(actor, parameters, bots, flags, addFlag, addBot, addScore) {
-
+    if (parameters[0] === 'in') {
+      
+    } else if (parameters[0] === 'out') {
+      
+    } else if (parameters[0]) {
+      
+    }
+    return [["Error: missing parameter <flow>. Options are 'in' and 'out'. See help for more info.", 'error']]
   }
   
   report() {

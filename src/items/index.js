@@ -21,6 +21,7 @@ import BotCore from './parts/botCore';
 import ArmPart from './parts/arm';
 import CameraPart from './parts/camera';
 import WheelsPart from './parts/wheels';
+import TankPart from './parts/tank';
 
 
 export {
@@ -46,5 +47,6 @@ export {
   BotCore,
   ArmPart,
   CameraPart,
-  WheelsPart
+  WheelsPart,
+  TankPart
 };

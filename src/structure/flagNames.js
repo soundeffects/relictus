@@ -1,4 +1,5 @@
 export default {
+  GODBOT: -1,
   RESTARTED: 0,
   BOT_ZERO: 1,
   FIRST_VIEW: 2,
