@@ -1,4 +1,7 @@
-# New Project
+# Relictus
+_A text adventure in space._
+Made by James Youngblood. Working on it for HackTheU at the University of Utah,
+2020. Go to https://relictus.herokuapp.com to play.
 
 > ✨ Bootstrapped with Create Snowpack App (CSA).
 
@@ -23,7 +26,3 @@ Builds a static copy of your site to the `build/` folder.
 Your app is ready to be deployed!
 
 **For the best production performance:** Add a build bundler plugin like [@snowpack/plugin-webpack](https://github.com/pikapkg/snowpack/tree/master/plugins/plugin-webpack) or [snowpack-plugin-rollup-bundle](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle) to your `snowpack.config.json` config file.
-
-### Q: What about Eject?
-
-No eject needed! Snowpack guarantees zero lock-in, and CSA strives for the same.
