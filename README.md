@@ -1,9 +1,29 @@
-# Relictus
-_A Text Adventure._
-Go to https://relictus.herokuapp.com to play.
+# New Project
 
-## Gameplay
-After waking up on a derelict ship, you control robots through a terminal screen in order to find some way to survive impending death, which could come from a stray asteroid, a misstep from your robots, or the atmosphere lying in wait for your re-entry. Try for the best score by the end of the game!
+> ✨ Bootstrapped with Create Snowpack App (CSA).
 
-## Frameworks
-This game is all built in JavaScript. I use React for the front-end, Redux for the state of the game and the rest of the logic is all vanilla js. Because of the unique design of this text adventure, and for the learning experience, I opted to make my own text parsing and game logic, rather than use another text adventure framework out there. Likely not most clean design, but feel free to look through and fork the project to create your own game.
+## Available Scripts
+
+### npm start
+
+Runs the app in the development mode.
+Open http://localhost:8080 to view it in the browser.
+
+The page will reload if you make edits.
+You will also see any lint errors in the console.
+
+### npm test
+
+Launches the test runner in the interactive watch mode.
+See the section about running tests for more information.
+
+### npm run build
+
+Builds a static copy of your site to the `build/` folder.
+Your app is ready to be deployed!
+
+**For the best production performance:** Add a build bundler plugin like [@snowpack/plugin-webpack](https://github.com/pikapkg/snowpack/tree/master/plugins/plugin-webpack) or [snowpack-plugin-rollup-bundle](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle) to your `snowpack.config.json` config file.
+
+### Q: What about Eject?
+
+No eject needed! Snowpack guarantees zero lock-in, and CSA strives for the same.
