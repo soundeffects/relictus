@@ -1,7 +1,6 @@
 # Relictus
 _A text adventure in space._
-Made by James Youngblood. Working on it for HackTheU at the University of Utah,
-2020. Go to https://relictus.herokuapp.com to play.
+Go to https://relictus.herokuapp.com to play.
 
 > ✨ Bootstrapped with Create Snowpack App (CSA).
 
