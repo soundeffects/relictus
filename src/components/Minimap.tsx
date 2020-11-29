@@ -3,7 +3,7 @@ import { Arwes } from 'arwes';
 
 interface MinimapProps {}
 
-function Minimap({}: LogProps) {
+function Minimap({}: MinimapProps) {
   // Create the count state.
   const [count, setCount] = useState(0);
   // Create the counter (+1 every second).

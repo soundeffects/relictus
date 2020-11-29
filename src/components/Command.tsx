@@ -3,7 +3,7 @@ import { Arwes } from 'arwes';
 
 interface CommandProps {}
 
-function Command({}: LogProps) {
+function Command({}: CommandProps) {
   // Create the count state.
   const [count, setCount] = useState(0);
   // Create the counter (+1 every second).
