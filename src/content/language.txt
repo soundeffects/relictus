@@ -1,0 +1,29 @@
+// First, flags
+FLAG newFlag 0 dependencyFlag1 dependencyFlag2 moreDependenciesGoOn
+
+// Second, locations
+LOC newLocation
+DESC
+A long description!
+Can use multiple lines!
+DESC
+PORT portLocation STAR starboardLocation AFT aftLocation FORE foreLocation
+INV item1 item2 item3
+
+// Third, items
+ITEM itemName1 itemName2
+DESC
+A long description!
+Can use multiple lines!
+DESC
+CARR carryClass 
+USE use1 use2
+
+// Fourth, modules
+MOD moduleName
+HELP
+A long help section!
+Can use multiple lines!
+HELP
+USE use1 use2
+CONV item

@@ -1,0 +1,12 @@
+ITEM rail track
+DESC
+This is a small rail that allows your bot to move around the rooms.
+DESC
+CARRY fixed
+
+ITEM paper slip note
+DESC
+The paper reads: thanks for your help while we develop the game! Submit
+any issues or suggestions you find to the github!
+DESC
+CARRY small

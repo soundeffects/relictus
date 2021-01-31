@@ -1,5 +1,5 @@
-import Descript from '../types/Descript';
-import Item from '../types/Item';
+import Descript from '../types/descript';
+import Item from '../types/item';
 
 
 /**
@@ -10,12 +10,13 @@ import Item from '../types/Item';
  * aft - backwards
  * port - left
  */
-export default enum Direction {
+export enum Direction {
   fore,
   starboard,
   aft,
   port
 }
+
 
 /**
  * oppositeDirection
@@ -23,40 +24,37 @@ export default enum Direction {
  * Fore and aft are opposites, starboard and port are opposites.
  */
 export function oppositeDirection(direction: Direction): Direction {
-  return Direction[(direction + 2) % 4];
+  // Directions are arranged such that this formula works
+  return (direction + 2) % 4;
 }
 
+
+
 class Location extends Descript {
-  private portals: Location[];
+  private portals: string[];
   private items: Item[];
 
-  public constructor(description: string) {
-    super(description);
-
-    this.portals = new Location[4];
+  public constructor(names: string[], description: string, portals: string[]) {
+    super(names, description);
+    this.portals = portals;
     this.items = [];
   }
-
-  public move(direction: Direction): Location {
+  
+  public portal(direction: Direction): string {
     return this.portals[direction];
   }
 
-  public link(direction: direction, location: Location): void {
-    this.portals[direction] = location;
-    location.portals[oppositeDirection(direction)] = this;
-  }
-
   public addItem(item: Item): void {
-    items.push(obj);
+    this.items.push(item);
   }
-
-  public removeItem(name: string): Item {
-    let removed = null;
+  
+  public removeItem(name: string): Item | undefined {
+    let removed: Item | undefined = undefined;
     
-    items.every((item, index) => {
+    this.items.every((item, index) => {
       if (item.matchName(name)) {
         removed = item;
-        items.splice(index, 1);
+        this.items.splice(index, 1);
         return false;
       }
       return true;
@@ -64,24 +62,41 @@ class Location extends Descript {
 
     return removed;
   }
-}
-
-const locations: Map = new Map();
-
-let position: Location;
-
-export function createLocation(description: string): void {
+  
+  public describe(filter: DescriptionFilter, arg: any): string[] {
+    const descriptions: string[] = [];
     
+    if (filter(this, arg))
+      descriptions.push(this.description);
+  
+    this.items.forEach(item => {
+      if (filter(item, arg))
+        descriptions.push(item.description);
+    });
+
+    return descriptions;
+  }
 }
 
-export function linkLocations(from: Location, direction: direction, to: Location) {
-    
+const locations: Map<string, Location> = new Map();
+
+export function createLocation(name: string, description: string, portals: string[]): void {
+  locations.set(name, new Location([name], description, portals));
 }
 
-export function move(direction): Location {
-    
+export function move(from: string, direction: Direction): string | undefined {
+  return locations.get(from)?.portal(direction);
 }
 
-export function describe(filter: string): string[] {
-   
-} 
+export function describe(location: string, filter: DescriptionFilter = filterDescriptionsBySeen,
+    arg: any = null): string[] {
+  return locations.get(location)?.describe(filter, arg) || [];
+}
+
+export function addItemToLocation(item: Item, location: string): void {
+  locations.get(location)?.addItem(item);
+}
+
+export function removeItemFromLocation(item: string, location: string): Item | undefined {
+  return locations.get(location)?.removeItem(item);
+}
