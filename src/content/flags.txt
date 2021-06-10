@@ -1,8 +1,0 @@
-FLAG firstView 1
-FLAG secondBot 1
-FLAG grasperConstructed 1
-FLAG bayOpened 2
-FLAG landerConstructed 2 grasperConstructed
-FLAG airlockOpened 2
-FLAG brainOnBoard 5 landerConstructed
-FLAG escaped 10 brainOnBoard bayOpened

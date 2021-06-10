@@ -3,22 +3,9 @@ import ReactDOM from 'react-dom';
 
 import { ThemeProvider, createTheme } from 'arwes';
 
-import Command from './components/Command';
-import GameOver from './components/GameOver';
-import Log from './components/Log';
-import Minimap from './components/Minimap';
-import Status from './components/Status';
-
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={createTheme()}>
-      <div className="wrapper">
-        <Log />
-        <Command />
-        <Minimap />
-        <Status />
-        <GameOver />
-      </div>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),

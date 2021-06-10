@@ -1,4 +1,3 @@
-import { readFileSync } from 'fs';
 import { DescriptionFilter } from './Descript';
 import Usable, { Use } from './Usable';
 
