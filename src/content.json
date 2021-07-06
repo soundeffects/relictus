@@ -51,7 +51,41 @@
       ]
     }
   ],
-  "items": [],
+  "items": [
+    {
+      "id": "net",
+      "names": ["Net Machinery", "machinery", "metal",
+        "sheet", "wires", "mechanisms", "machine",
+        "mechanism"],
+      "description": "Packed away are folds of wires, mechanisms, and metal sheet, illuminated by flashes and sparks. It appears things here are in disrepair.",
+      "carry": "fixed"
+    }
+  ],
   "modules": [],
-  "locations": []
+  "locations": [
+    {
+      "id": "net",
+      "name": "Net Device",
+      "description": "The bot stops as it reaches the end of the rail. Here, the walls taper into a point, forming a conical shape. Free space is limited."
+      "links": {
+        "aft": "cpu"
+      },
+      "content": ["net"]
+    },
+    {
+      "id": "cpu",
+      "name": "Onboard Computer",
+      "description": "A smooth, cylindrical tunnel wraps around the bot rails, made out of reflective chrome panels. Small labels mark each panel, indicating which computer system is housed there."
+      "links": {
+        "fore": "net",
+        "aft": "carrier"
+      },
+      "content": []
+    },
+    {
+      "id": "carrier",
+      "name": "Carrier",
+      "description": "About twenty bulky spheres embed into the tunnel walls around the bot rails. and a few tanks look dented, but for the most part this room has escaped serious damage. Most of the pipes lead into the aft wall."
+    }
+  ]
 }
