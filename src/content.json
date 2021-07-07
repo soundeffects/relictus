@@ -66,7 +66,7 @@
     {
       "id": "net",
       "name": "Net Device",
-      "description": "The bot stops as it reaches the end of the rail. Here, the walls taper into a point, forming a conical shape. Free space is limited."
+      "description": "The bot stops as it reaches the end of the rail. Here, the walls taper into a point, forming a conical shape. Free space is limited.",
       "links": {
         "aft": "cpu"
       },
@@ -75,7 +75,7 @@
     {
       "id": "cpu",
       "name": "Onboard Computer",
-      "description": "A smooth, cylindrical tunnel wraps around the bot rails, made out of reflective chrome panels. Small labels mark each panel, indicating which computer system is housed there."
+      "description": "A smooth, cylindrical tunnel wraps around the bot rails, made out of reflective chrome panels. Small labels mark each panel, indicating which computer system is housed there.",
       "links": {
         "fore": "net",
         "aft": "carrier"
@@ -85,7 +85,34 @@
     {
       "id": "carrier",
       "name": "Carrier",
-      "description": "About twenty bulky spheres embed into the tunnel walls around the bot rails. and a few tanks look dented, but for the most part this room has escaped serious damage. Most of the pipes lead into the aft wall."
+      "description": "About twenty bulky spheres embed into the tunnel walls around the bot rails, each marked by a word--a name. Closest to the camera reads 'Julian.' Each sphere's status is indicated by a small LED light; and all lights are red. All except one, shining green alone. You feel your stomach sinking.",
+      "links": {
+        "fore": "cpu",
+        "aft": "life_support"
+      },
+      "content": []
+    },
+    {
+      "id": "life_support",
+      "name": "Life Support",
+      "description": "This room is all sterile and bright. Glossy white plastic plates machinery to prevent any corrosion. On opposite sides of the tunnel are two bright stripes, either red or blue, 'Blood' or 'Water.' Several manual control switches are placed along the stripes, underneath the labels.",
+      "links": {
+        "fore": "carrier",
+        "aft": "cargo"
+      },
+      "content": []
+    },
+    {
+      "id": "cargo",
+      "name": "Cargo Bay",
+      "description": "Majestic space, more than anywhere else on the ship, stretches before you. Other sections of the cargo bay are visible to you. To starboard is a platform with two mechanical arms to oversee it, for construction. To port, the bay doors impose. Three portals exit the cargo bay to aft, but the black and yellow warning signs in front of them are cause for concern.",
+      "links": {
+        "fore": "life_support",
+        "starboard": "construction",
+        "port": "doors",
+        "aft": "generator"
+      },
+      "content": []
     }
   ]
 }
