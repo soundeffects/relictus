@@ -64,8 +64,8 @@
   "modules": [],
   "locations": [
     {
-      "id": "net",
-      "name": "Net Device",
+      "id": "nose",
+      "name": "Nosecone",
       "description": "The bot stops as it reaches the end of the rail. Here, the walls taper into a point, forming a conical shape. Free space is limited.",
       "links": {
         "aft": "cpu"
@@ -77,7 +77,7 @@
       "name": "Onboard Computer",
       "description": "A smooth, cylindrical tunnel wraps around the bot rails, made out of reflective chrome panels. Small labels mark each panel, indicating which computer system is housed there.",
       "links": {
-        "fore": "net",
+        "fore": "nose",
         "aft": "carrier"
       },
       "content": []
@@ -105,12 +105,84 @@
     {
       "id": "cargo",
       "name": "Cargo Bay",
-      "description": "Majestic space, more than anywhere else on the ship, stretches before you. Other sections of the cargo bay are visible to you. To starboard is a platform with two mechanical arms to oversee it, for construction. To port, the bay doors impose. Three portals exit the cargo bay to aft, but the black and yellow warning signs in front of them are cause for concern.",
+      "description": "Majestic space stretches before you, enclosed by metal walls, with grated patterns covering the surface. Debris fills the space, floating in a big mess. You have some difficulty trying to pinpoint the cause for the mess, and it's concerning.",
       "links": {
         "fore": "life_support",
-        "starboard": "construction",
-        "port": "doors",
-        "aft": "generator"
+        "aft": "reactor",
+        "out": "compartment_top"
+        
+      },
+      "content": []
+    },
+    {
+      "id": "reactor",
+      "name": "Reactor Monitor",
+      "description": "The rail ends here. In engraved letters on the far wall: 'Reactor Monitor.' In contrast with the rest of the ship, the walls here are of dark and clunky metal, and thick bolts secure them. It is as if only the strongest of materials will hold, where design is unable to afford thought for aesthetic.",
+      "links": {
+        "fore": "cargo"
+      },
+      "content": []
+    },
+    {
+      "id": "compartment_top",
+      "name": "Outside Crew Compartment, topside",
+      "description": "",
+      "links": {
+        "fore": "outside_nose",
+        "aft": "reactor_top",
+        "in": "cargo",
+        "rotate": "compartment_bottom"
+      },
+      "content": []
+    },
+    {
+      "id": "compartment_bottom",
+      "name": "Outside Crew Compartment, bottomside",
+      "description": "",
+      "links": {
+        "fore": "outside_nose",
+        "aft": "reactor_bottom",
+        "rotate": "compartment_top"
+      },
+      "content": []
+    },
+    {
+      "id": "outside_nose",
+      "name": "Outside Crew Compartment, on nose",
+      "description": "",
+      "links": {
+        "aft": "compartment_top"
+      },
+      "content": []
+    },
+    {
+      "id": "reactor_top",
+      "name": "Outside Reactor, topside",
+      "description": "",
+      "links": {
+        "fore": "compartment_top",
+        "aft": "tail",
+        "rotate": "reactor_bottom"
+      },
+      "content": []
+    },
+    {
+      "id": "reactor_bottom",
+      "name": "Outside Reactor, bottomside",
+      "description": "",
+      "links": {
+        "fore": "compartment_bottom",
+        "aft": "tail",
+        "rotate": "reactor_top"
+      },
+      "content": []
+    },
+    {
+      "id": "tail",
+      "name": "Outside Reactor, on tail",
+      "description": "",
+      "links": {
+        "fore": "reactor_top"
       },
       "content": []
     }

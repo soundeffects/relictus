@@ -48,18 +48,18 @@ export const filterDescriptionsAll: DescriptionFilter = (descript: Descript, arg
  */
 export default abstract class Descript {
   private names: string[];
-  private _description: string;
+  private description: string;
   private _seen: boolean;
 
   public constructor(names: string[], description: string) {
     this.names = names;
-    this._description = description;
+    this.description = description;
     this._seen = false;
   }
   
   public describe(filter: DescriptionFilter, arg: any): string | null {
     if (filter(this, arg))
-      return this._description;
+      return this.description;
     return null;
   }
 
@@ -69,5 +69,9 @@ export default abstract class Descript {
 
   public matchName(given: string): boolean {
     return this.names.includes(given.toLowerCase());
+  }
+
+  public get name(): string {
+    return this.names[0];
   }
 }

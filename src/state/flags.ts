@@ -7,33 +7,10 @@ import { flags } from '../content.json';
  * player's score. A flag cannot be activated before all its
  * dependencies have been activated.
  */ 
-class Flag {
-  private dependencies: string[];
-  private score: number;
-  private _active: boolean;
-  
-  public constructor(score: number, dependencies: string[]) {
-    this.score = score;
-    this.dependencies = dependencies;
-    this._active = false;
-  }
-
-  public get active(): boolean { return this._active; }
-  
-  public activate(): boolean {
-    if (this._active)
-      return false;
-
-    let dependenciesClear = true;
-    this.dependencies.every(dependency =>
-      dependenciesClear = flagIsActive(dependency)
-    );
-    
-    if (dependenciesClear)
-      score += this.score;
-
-    return this._active = dependenciesClear;
-  }
+interface Flag {
+  dependencies: string[];
+  score: number;
+  active: boolean;
 }
 
 
@@ -55,7 +32,19 @@ export let score = 0;
  * returns true. Otherwise, returns false.
  */
 export function activateFlag(id: string): boolean {
-  return flag_list.get(id)?.activate() || false;
+  const flag = flag_list.get(id);
+  if (!flag || flag.active)
+    return false;
+
+  let dependenciesClear = true;
+  flag.dependencies.every(dependency =>
+    dependenciesClear = flagIsActive(dependency)
+  );
+  
+  if (dependenciesClear)
+    score += flag.score;
+
+  return flag.active = dependenciesClear;
 }
 
 
@@ -84,7 +73,11 @@ export function resetFlags(): void {
     }) =>
     flag_list.set(
       flag.id,
-      new Flag(flag.score, flag.dependencies || [])
+      {
+        score: flag.score,
+        dependencies: flag.dependencies || [],
+        active: false
+      }
     )
   );
 }
