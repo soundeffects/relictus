@@ -59,9 +59,15 @@
         "mechanism"],
       "description": "Packed away are folds of wires, mechanisms, and metal sheet, illuminated by flashes and sparks. It appears things here are in disrepair.",
       "carry": "fixed"
+    },
+    {
+      "id": "grasper",
+      "names": ["Grasper Attachment", "grasper", "arm", 
+        "part"],
+      "description": "",
+      "carry": "small"
     }
   ],
-  "modules": [],
   "locations": [
     {
       "id": "nose",
@@ -70,7 +76,7 @@
       "links": {
         "aft": "cpu"
       },
-      "content": ["net"]
+      "contents": ["net"]
     },
     {
       "id": "cpu",
@@ -80,7 +86,7 @@
         "fore": "nose",
         "aft": "carrier"
       },
-      "content": []
+      "contents": []
     },
     {
       "id": "carrier",
@@ -90,7 +96,7 @@
         "fore": "cpu",
         "aft": "life_support"
       },
-      "content": []
+      "contents": []
     },
     {
       "id": "life_support",
@@ -100,7 +106,7 @@
         "fore": "carrier",
         "aft": "cargo"
       },
-      "content": []
+      "contents": []
     },
     {
       "id": "cargo",
@@ -112,7 +118,7 @@
         "out": "compartment_top"
         
       },
-      "content": []
+      "contents": []
     },
     {
       "id": "reactor",
@@ -121,7 +127,7 @@
       "links": {
         "fore": "cargo"
       },
-      "content": []
+      "contents": []
     },
     {
       "id": "compartment_top",
@@ -133,7 +139,7 @@
         "in": "cargo",
         "rotate": "compartment_bottom"
       },
-      "content": []
+      "contents": []
     },
     {
       "id": "compartment_bottom",
@@ -144,7 +150,7 @@
         "aft": "reactor_bottom",
         "rotate": "compartment_top"
       },
-      "content": []
+      "contents": []
     },
     {
       "id": "outside_nose",
@@ -153,7 +159,7 @@
       "links": {
         "aft": "compartment_top"
       },
-      "content": []
+      "contents": []
     },
     {
       "id": "reactor_top",
@@ -164,7 +170,7 @@
         "aft": "tail",
         "rotate": "reactor_bottom"
       },
-      "content": []
+      "contents": []
     },
     {
       "id": "reactor_bottom",
@@ -175,7 +181,7 @@
         "aft": "tail",
         "rotate": "reactor_top"
       },
-      "content": []
+      "contents": []
     },
     {
       "id": "tail",
@@ -184,7 +190,8 @@
       "links": {
         "fore": "reactor_top"
       },
-      "content": []
+      "contents": []
     }
-  ]
+  ],
+  "recipes": []
 }

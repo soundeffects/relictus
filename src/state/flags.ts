@@ -65,14 +65,15 @@ export function resetFlags(): void {
   score = 0;
   flag_list.clear();
   
-  flags.forEach((flag: {
-      id: string,
-      comment: string,
-      score: number,
-      dependencies?: string[]
-    }) =>
-    flag_list.set(
-      flag.id,
+  interface FlagJSON {
+    id: string,
+    comment: string,
+    score: number,
+    dependencies?: string[]
+  }
+
+  flags.forEach((flag: FlagJSON) =>
+    flag_list.set(flag.id,
       {
         score: flag.score,
         dependencies: flag.dependencies || [],
