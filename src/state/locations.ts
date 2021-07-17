@@ -1,18 +1,21 @@
 import { locations } from '../content.json';
-import { validItemId, describeItem } from './items';
+import * as ItemState from './items';
 
 
 /**
  * Locations are places which contain items and contents and
  * can be explored by bots. Each location will have a name,
  * description, list of item ids as contents, and a series
- * of links to other locations in specific directions.
+ * of links to other locations in specific directions. The
+ * description of a location is automatically printed if it
+ * has not yet been seen.
  */
 interface Location {
   name: string;
   description: string;
   links: Map<string, string>;
   contents: string[];
+  seen: boolean;
 }
 
 
@@ -23,54 +26,132 @@ const location_list: Map<string, Location> = new Map();
 
 
 /**
- * If a location is found with the given id, returns its
- * name. Otherwise, returns an empty string.
+ * If a location is found with the given 'id,' returns true.
+ * Otherwise, returns false.
  */
-export function nameLocation(id: string): string {
-  return location_list.get(id)?.name || "";
+export function validLocationId(id: string): boolean {
+  return location_list.has(id);
 }
 
 
 /**
- * If a location is found with the given id, returns its
- * description. Otherwise, returns an empty string.
+ * An object that bundles the name alongside the description
+ * of a location.
  */
-export function describeLocation(id: string): string {
-  return location_list.get(id)?.description || "";
+export interface LocationDescription {
+  name: string;
+  descriptions: string[];
+}
+
+
+// Creates a single-sentence list of items from an array
+function listItems(items: string[]): string {
+  let item_sentence = "There ";
+  
+  items.forEach((item, index) => {
+    const plural = ItemState.itemIsPlural(item);
+    const isStart = index === 0;
+    const isEnd = index === items.length - 1;
+
+    if (isStart) {
+      if (plural)
+        item_sentence += "are ";
+      else
+        item_sentence += "is ";
+    } else if (isEnd) {
+      item_sentence += "and "
+    }
+
+    if (plural)
+      item_sentence += "some " + ItemState.nameItem(item);
+    else
+      item_sentence += "a " + ItemState.nameItem(item);
+
+    if (isEnd)
+      item_sentence += " here.";
+    else
+      item_sentence += ", ";
+    
+  });
+
+  return item_sentence;
 }
 
 
 /**
- * If a location is found with the given id, and the
- * the location has items within it, returns the
- * descriptions of every item in an array. Otherwise,
- * returns an empty array.
+ * If a location is found with the given 'id,' returns a
+ * full description of the location, including the
+ * name and description elements of the location, as well as
+ * the descriptions of fixtures (items with carry class
+ * "fixed") in the location and a list of other, non-fixture
+ * items. If no location was found with the given 'id,'
+ * returns undefined.
  */
-export function describeContents(id: string): string[] {
-  const descs: string[] = [];
-  const contents = location_list.get(id)?.contents;
+export function describeLocation(id: string): LocationDescription | undefined {
+  const location = location_list.get(id);
+  if (!location)
+    return undefined;
 
-  contents?.forEach(item => descs.push(describeItem(item)));
+  const descs: string[] = [location.description];
+  const looseItems: string[] = [];
+  location.contents.forEach(item => {
+    // if item is not a fixture, put into abbreviated list
+    if (!ItemState.itemHasCarryClass(item, ItemState.CarryClass.fixed))
+      looseItems.push(item);
 
-  return descs;
+    // for fixtures, describe fully
+    else {
+      const desc = ItemState.describeItem(item);
+      if (desc)
+        descs.push(desc);
+    }
+  });
+  descs.push(listItems(looseItems));
+
+  return { name: location.name, descriptions: descs };
 }
 
 
 /**
- * If a location is found with the given id, and the item_id
- * provided is valid, adds the item to the location's
- * contents.
+ * If a location is found with the given 'id,' and the
+ * location has not been seen before, return a full
+ * description of the location (see describeLocation). If
+ * the location has been seen before, then return a
+ * shortened description, consisting only of the name and
+ * a single-sentence list of the items in the location.
+ * If no location was found with the given 'id,' return
+ * undefined.
+ */
+export function autoDescribeLocation(id: string): LocationDescription | undefined {
+  const location = location_list.get(id);
+  if (!location)
+    return undefined;
+
+  if (location.seen) {
+    return {
+      name: location.name,
+      descriptions: [ listItems(location.contents) ]
+    };
+  }
+
+  return describeLocation(id);
+}
+
+/**
+ * If a location is found with the given 'id,' and the
+ * 'item_id' provided is valid, adds the item to the 
+ * location's contents.
  */
 export function addToLocation(id: string, item_id: string): void {
-  if (validItemId(item_id))
+  if (ItemState.validItemId(item_id))
     location_list.get(id)?.contents.push(item_id);
 }
 
 
 /**
- * If a location is found with the given id, and the item_id
- * is found within the location's contents, removes the
- * item from the contents.
+ * If a location is found with the given 'id,' and the
+ * 'item_id' is found within the location's contents,
+ * removes the item from the contents.
  */
 export function removeFromLocation(id: string, item_id: string): void {
   const loc = location_list.get(id);
@@ -117,7 +198,8 @@ export function resetLocations(): void {
         name: location.name,
         description: location.description,
         links: objectToMap(location.links),
-        contents: location.contents
+        contents: location.contents,
+        seen: false
       }
     )
   );

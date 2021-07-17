@@ -15,14 +15,17 @@ export enum CarryClass {
 
 /**
  * Items either exist in a location or are carried by a
- * module. They can be identified by multiple names, have a
- * description, and possibly a use. They can be carried 
- * according to their carry class rules.
+ * module. They can be identified by multiple names, and
+ * they have a description that is printed automatically
+ * when the item has not been seen before. They can be 
+ * carried by modules according to their carry class.
  */
 interface Item {
   names: string[];
   description: string;
   carry: CarryClass;
+  seen: boolean;
+  plural: boolean;
 }
 
 
@@ -33,7 +36,7 @@ const item_list: Map<string, Item> = new Map();
 
 
 /**
- * If the id provided maps to an item, returns true.
+ * If the 'id' provided maps to an item, returns true.
  * Otherwise, returns false.
  */
 export function validItemId(id: string): boolean {
@@ -42,31 +45,57 @@ export function validItemId(id: string): boolean {
 
 
 /**
- * If an item with the given id is found, and the item's
- * list of names includes the given name, return true.
- * Otherwise, return false.
+ * If an item with the given 'id' is found, and the item's
+ * list of names includes the given 'name,' return true. If
+ * the item did not have 'name,' return false, and if no
+ * item was found with that 'id,' return undefined.
  */
-export function itemIncludesName(id: string, name: string): boolean {
-  return item_list.get(id)?.names.includes(name) || false;
+export function itemHasName(id: string, name: string): boolean | undefined {
+  return item_list.get(id)?.names.includes(name);
 }
 
 
 /**
- * If an item with the given id is found, returns the item's
- * description. Otherwise, returns an empty string.
+ * If an item with the given 'id' is found, returns the
+ * item's name. Otherwise, returns undefined.
  */
-export function describeItem(id: string): string {
-  return item_list.get(id)?.description || "";
+export function nameItem(id: string): string | undefined {
+  return item_list.get(id)?.names[0];
 }
 
 
 /**
- * If an item with the given id is found, and the item's
- * carry class is the same as the one provided, then return
- * true. Otherwise, return false.
+ * If an item with the given 'id' is found, returns the
+ * item's description. Otherwise, returns undefined.
  */
-export function carryItem(id: string, cc: CarryClass): boolean {
-  return item_list.get(id)?.carry === cc;
+export function describeItem(id: string): string | undefined {
+  return item_list.get(id)?.description;
+}
+
+
+/**
+ * If an item with the given 'id' is found, returns whether
+ * it should be referred to with plurality (upon which it
+ * returns true) or not (returns false). If no item with
+ * the given 'id' was found, returns undefined.
+ */
+ export function itemIsPlural(id: string): boolean | undefined {
+  return item_list.get(id)?.plural;
+ }
+
+
+/**
+ * If an item with the given 'id' is found, and the item's
+ * carry class is the same as the 'cc' provided, returns
+ * true. If the carry class differs, returns false. If no
+ * item could be found with the given 'id,' returns
+ * undefined.
+ */
+export function itemHasCarryClass(id: string, cc: CarryClass): boolean | undefined {
+  const item = item_list.get(id);
+  if (!item)
+    return undefined;
+  return item.carry === cc;
 }
 
 
@@ -78,18 +107,21 @@ export function resetItems(): void {
   item_list.clear();
   
   interface ItemJSON {
-    id: string,
-    names: string[],
-    description: string,
-    carry: string
+    id: string;
+    names: string[];
+    plural: boolean;
+    description: string;
+    carry: string;
   };
 
   items.forEach((item: ItemJSON) =>
     item_list.set(item.id,
       {
         names: item.names,
+        plural: item.plural,
         description: item.description,
-        carry: CarryClass[item.carry as keyof typeof CarryClass]
+        carry: CarryClass[item.carry as keyof typeof CarryClass],
+        seen: false
       }
     )
   );

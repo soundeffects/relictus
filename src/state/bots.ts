@@ -1,39 +1,27 @@
-
-  interface Module {
-    name: string;
-    status: string;
-    description: string;
-    actions: string[];
-    inventory: string;
-  }
-
-interface ActionFunc {
-  (input: string): string;
-}
-
-
 class Bot {
 
   private name: string;
   private modules: Module[];
   private location: string;
-  private actionFuncs: Map<string, ActionFunc>;
     
   
   public constructor(name: string, location: string) {
     this.name = name;
     this.location = location;
     this.modules = [];
-
-    this.actionFuncs = new Map();
-    this.actionFuncs.set('move', this.move);
-    this.actionFuncs.set('use', this.use);
-    this.actionFuncs.set('view', this.view);
-    this.actionFuncs.set('grab', this.grab);
-    this.actionFuncs.set('drop', this.drop);
   }
 
-  public act(input: string): string {
+  public act(tokens: string[]): string {
+    const command = tokens.shift();
+    const target = tokens.shift();
+
+    switch (command) {
+      case "move":
+        this.move(target);
+      case "use":
+        this.use(target);
+        
+    }
     return "";
   }
 

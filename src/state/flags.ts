@@ -27,19 +27,35 @@ export let score = 0;
 
 
 /**
- * If 'id' leads to a flag that is not activated and its
- * dependencies are activated; activates the flag and
- * returns true. Otherwise, returns false.
+ * Returns true if a flag is found with the given 'id,'
+ * otherwise returns false.
  */
-export function activateFlag(id: string): boolean {
+export function validFlagId(id: string): boolean {
+  return flag_list.has(id);
+}
+
+
+/**
+ * Finds a flag with the given 'id,' and activates it, as
+ * long as it is not already active and all of its
+ * dependencies are active. If the flag meets these
+ * requirements, returns true, otherwise returns false.
+ * If no flag was found with the given 'id,' returns
+ * undefined.
+ */
+export function activateFlag(id: string): boolean | undefined {
   const flag = flag_list.get(id);
-  if (!flag || flag.active)
+  if (!flag)
+    return undefined;
+  if (flag.active)
     return false;
 
   let dependenciesClear = true;
-  flag.dependencies.every(dependency =>
-    dependenciesClear = flagIsActive(dependency)
-  );
+  flag.dependencies.every(dependency => {
+    if (!flagIsActive(dependency))
+      return dependenciesClear = false;
+    return true;
+  });
   
   if (dependenciesClear)
     score += flag.score;
@@ -49,11 +65,12 @@ export function activateFlag(id: string): boolean {
 
 
 /**
- * Returns true if 'id' leads to a flag that is active.
- * Otherwise, returns false.
+ * Returns true if 'id' leads to a flag that is active,
+ * returns false if the flag is not active. Returns
+ * undefined if no flag is found with the given 'id.'
  */
-export function flagIsActive(id: string): boolean {
-  return flag_list.get(id)?.active || false;
+export function flagIsActive(id: string): boolean | undefined {
+  return flag_list.get(id)?.active;
 }
 
 

@@ -57,6 +57,7 @@
       "names": ["Net Machinery", "machinery", "metal",
         "sheet", "wires", "mechanisms", "machine",
         "mechanism"],
+      "plural": true,
       "description": "Packed away are folds of wires, mechanisms, and metal sheet, illuminated by flashes and sparks. It appears things here are in disrepair.",
       "carry": "fixed"
     },
@@ -64,8 +65,21 @@
       "id": "grasper",
       "names": ["Grasper Attachment", "grasper", "arm", 
         "part"],
+      "plural": false,
       "description": "",
       "carry": "small"
+    }
+  ],
+  "modules": [
+    {
+      "id": "grasper",
+      "name": "Grasper",
+      "help": "",
+      "commands": {
+        "catalyze": ["use"],
+        "carry": ["grab", "carry"],
+        "drop": ["drop"]
+      }
     }
   ],
   "locations": [
