@@ -22,7 +22,7 @@ interface Location {
 /**
  * Stores all instances of locations, mapped by id.
  */
-const location_list: Map<string, Location> = new Map();
+const locationList: Map<string, Location> = new Map();
 
 
 /**
@@ -30,7 +30,7 @@ const location_list: Map<string, Location> = new Map();
  * Otherwise, returns false.
  */
 export function validLocationId(id: string): boolean {
-  return location_list.has(id);
+  return locationList.has(id);
 }
 
 
@@ -88,7 +88,7 @@ function listItems(items: string[]): string {
  * returns undefined.
  */
 export function describeLocation(id: string): LocationDescription | undefined {
-  const location = location_list.get(id);
+  const location = locationList.get(id);
   if (!location)
     return undefined;
 
@@ -123,7 +123,7 @@ export function describeLocation(id: string): LocationDescription | undefined {
  * undefined.
  */
 export function autoDescribeLocation(id: string): LocationDescription | undefined {
-  const location = location_list.get(id);
+  const location = locationList.get(id);
   if (!location)
     return undefined;
 
@@ -144,7 +144,7 @@ export function autoDescribeLocation(id: string): LocationDescription | undefine
  */
 export function addToLocation(id: string, item_id: string): void {
   if (ItemState.validItemId(item_id))
-    location_list.get(id)?.contents.push(item_id);
+    locationList.get(id)?.contents.push(item_id);
 }
 
 
@@ -154,7 +154,7 @@ export function addToLocation(id: string, item_id: string): void {
  * removes the item from the contents.
  */
 export function removeFromLocation(id: string, item_id: string): void {
-  const loc = location_list.get(id);
+  const loc = locationList.get(id);
   if (loc)
     loc.contents = loc.contents.filter(item => item !== item_id)
 }
@@ -167,7 +167,7 @@ export function removeFromLocation(id: string, item_id: string): void {
  * an empty string.
  */
 export function getLocationLink(id: string, direction: string): string {
-  return location_list.get(id)?.links.get(direction) || "";
+  return locationList.get(id)?.links.get(direction) || "";
 }
 
 
@@ -176,7 +176,7 @@ export function getLocationLink(id: string, direction: string): string {
  * to the content json file.
  */
 export function resetLocations(): void {
-  location_list.clear();
+  locationList.clear();
   
   interface LocationJSON {
     id: string,
@@ -193,7 +193,7 @@ export function resetLocations(): void {
   }
 
   locations.forEach((location: LocationJSON) =>
-    location_list.set(location.id,
+    locationList.set(location.id,
       {
         name: location.name,
         description: location.description,

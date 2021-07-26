@@ -207,5 +207,21 @@
       "contents": []
     }
   ],
-  "recipes": []
+  "recipes": [
+    {
+      "catalyst": "wheels",
+      "inventory": "something",
+      "items": [],
+      "flags": [],
+      "result": {
+        "score": 1,
+        "flag": "something",
+        "event": "something",
+        "consumeItems": false,
+        "items": [],
+        "consumeModule": "something",
+        "modules": [],
+      }
+    }
+  ]
 }

@@ -1,61 +1,59 @@
-class Bot {
+import * as ModuleState from './modules';
 
-  private name: string;
-  private modules: Module[];
-  private location: string;
-    
+interface Bot {
   
-  public constructor(name: string, location: string) {
-    this.name = name;
-    this.location = location;
-    this.modules = [];
-  }
+};
 
-  public act(tokens: string[]): string {
-    const command = tokens.shift();
-    const target = tokens.shift();
 
-    switch (command) {
-      case "move":
-        this.move(target);
-      case "use":
-        this.use(target);
-        
-    }
-    return "";
-  }
+/**
+ * Exactly three bots can be active at any one time. They
+ * are accesible through this Tuple.
+ */
+export const bots: [Bot | null, Bot | null, Bot | null] = [null, null, null];
 
-  public move(direction: string): string {
-    return "";
-  }
 
-  public use(tool: string): string {
-    return "";
-  }
+/**
+ * This value determines which bot is currently being given
+ * commands.
+ */
+export let activeBot: number = 0;
 
-  public view(target: string): string {
-    return "";
-  }
 
-  public grab(object: string): string {
-    return "";
-  }
+/**
+ * Increments the active bot counter if there is more than
+ * one bot, so that the currently active bot is swapped.
+ */
+export function nextActiveBot(): void {
+  let numBots;
+  if (bots[2])
+    numBots = 3;
+  else if (bots[1])
+    numBots = 2;
+  else
+    return;
 
-  public drop(object: string): string {
-    return "";
-  }
+  activeBot++;
+  if (activeBot >= numBots)
+    activeBot = 0;
 }
 
 
-export let active_bot: Bot;
+export interface BotResponse {
+  messages: string[];
+};
 
 
-const bot_list: Bot[] = [];
+export function commandBot(tokens: string[]): BotResponse {
+  return { messages: [] };
+}
 
 
+/**
+ * Clears the bots Tuple, and sets the first item of the
+ * Tuple to be the bot 'Zero.'
+ */
 export function resetBots() {
-  bot_list.splice(0, bot_list.length)
-  
-  bot_list.push(new Bot('Zero', 'cargo'));
-  active_bot = bot_list[0];
+  bots[0] = new Bot('Zero', 'cargo');
+  bots[1] = bots[2] = null;
+  activeBot= 0;
 }

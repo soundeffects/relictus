@@ -32,7 +32,7 @@ interface Item {
 /**
  * Stores all instances of items, mapped by id.
  */
-const item_list: Map<string, Item> = new Map();
+const itemList: Map<string, Item> = new Map();
 
 
 /**
@@ -40,7 +40,7 @@ const item_list: Map<string, Item> = new Map();
  * Otherwise, returns false.
  */
 export function validItemId(id: string): boolean {
-  return item_list.has(id);
+  return itemList.has(id);
 }
 
 
@@ -51,7 +51,7 @@ export function validItemId(id: string): boolean {
  * item was found with that 'id,' return undefined.
  */
 export function itemHasName(id: string, name: string): boolean | undefined {
-  return item_list.get(id)?.names.includes(name);
+  return itemList.get(id)?.names.includes(name);
 }
 
 
@@ -60,7 +60,7 @@ export function itemHasName(id: string, name: string): boolean | undefined {
  * item's name. Otherwise, returns undefined.
  */
 export function nameItem(id: string): string | undefined {
-  return item_list.get(id)?.names[0];
+  return itemList.get(id)?.names[0];
 }
 
 
@@ -69,7 +69,7 @@ export function nameItem(id: string): string | undefined {
  * item's description. Otherwise, returns undefined.
  */
 export function describeItem(id: string): string | undefined {
-  return item_list.get(id)?.description;
+  return itemList.get(id)?.description;
 }
 
 
@@ -80,7 +80,7 @@ export function describeItem(id: string): string | undefined {
  * the given 'id' was found, returns undefined.
  */
  export function itemIsPlural(id: string): boolean | undefined {
-  return item_list.get(id)?.plural;
+  return itemList.get(id)?.plural;
  }
 
 
@@ -92,7 +92,7 @@ export function describeItem(id: string): string | undefined {
  * undefined.
  */
 export function itemHasCarryClass(id: string, cc: CarryClass): boolean | undefined {
-  const item = item_list.get(id);
+  const item = itemList.get(id);
   if (!item)
     return undefined;
   return item.carry === cc;
@@ -104,7 +104,7 @@ export function itemHasCarryClass(id: string, cc: CarryClass): boolean | undefin
  * content json file.
  */
 export function resetItems(): void {
-  item_list.clear();
+  itemList.clear();
   
   interface ItemJSON {
     id: string;
@@ -115,7 +115,7 @@ export function resetItems(): void {
   };
 
   items.forEach((item: ItemJSON) =>
-    item_list.set(item.id,
+    itemList.set(item.id,
       {
         names: item.names,
         plural: item.plural,

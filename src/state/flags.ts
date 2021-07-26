@@ -17,7 +17,7 @@ interface Flag {
 /**
  * Stores all instances of flags, mapped to by id.
  */
-const flag_list: Map<string, Flag> = new Map();
+const flagList: Map<string, Flag> = new Map();
 
 
 /**
@@ -31,7 +31,7 @@ export let score = 0;
  * otherwise returns false.
  */
 export function validFlagId(id: string): boolean {
-  return flag_list.has(id);
+  return flagList.has(id);
 }
 
 
@@ -44,7 +44,7 @@ export function validFlagId(id: string): boolean {
  * undefined.
  */
 export function activateFlag(id: string): boolean | undefined {
-  const flag = flag_list.get(id);
+  const flag = flagList.get(id);
   if (!flag)
     return undefined;
   if (flag.active)
@@ -70,7 +70,7 @@ export function activateFlag(id: string): boolean | undefined {
  * undefined if no flag is found with the given 'id.'
  */
 export function flagIsActive(id: string): boolean | undefined {
-  return flag_list.get(id)?.active;
+  return flagList.get(id)?.active;
 }
 
 
@@ -80,7 +80,7 @@ export function flagIsActive(id: string): boolean | undefined {
  */
 export function resetFlags(): void {
   score = 0;
-  flag_list.clear();
+  flagList.clear();
   
   interface FlagJSON {
     id: string,
@@ -90,7 +90,7 @@ export function resetFlags(): void {
   }
 
   flags.forEach((flag: FlagJSON) =>
-    flag_list.set(flag.id,
+    flagList.set(flag.id,
       {
         score: flag.score,
         dependencies: flag.dependencies || [],
