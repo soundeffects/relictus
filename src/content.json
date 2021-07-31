@@ -1,56 +1,4 @@
 {
-  "flags": [
-    {
-      "id": "first_view",
-      "comment": "First use of the view command",
-      "score": 1
-    },
-    {
-      "id": "second_bot",
-      "comment": "Second bot activated",
-      "score": 1
-    },
-    {
-      "id": "grasper_attach",
-      "comment": "Grasper module attached to bot",
-      "score": 1
-    },
-    {
-      "id": "bay_open",
-      "comment": "The bay doors open for the first time",
-      "score": 2
-    },
-    {
-      "id": "lander_construct",
-      "comment": "Lander has been constructed",
-      "score": 2,
-      "dependencies": [
-        "grasper_attach"
-      ]
-    },
-    {
-      "id": "unlock",
-      "comment": "Locked gate to thrusters has been opened",
-      "score": 2
-    },
-    {
-      "id": "brain_onboard",
-      "comment": "Your brain has been loaded onto the lander",
-      "score": 5,
-      "dependencies": [
-        "lander_construct"
-      ]
-    },
-    {
-      "id": "escaped",
-      "comment": "You've escaped the ship and landed on planet",
-      "score": 10,
-      "dependencies": [
-        "brain_onboard",
-        "bay_open"
-      ]
-    }
-  ],
   "items": [
     {
       "id": "net",
@@ -209,18 +157,12 @@
   ],
   "recipes": [
     {
-      "catalyst": "wheels",
-      "inventory": "something",
-      "items": [],
-      "flags": [],
+      "catalyst": "camera",
+      "repeatable": false,
       "result": {
         "score": 1,
-        "flag": "something",
-        "event": "something",
-        "consumeItems": false,
-        "items": [],
-        "consumeModule": "something",
-        "modules": [],
+        "flag": "firstView",
+        "event": "Your camera hooks up, and you view your surroundings.",
       }
     }
   ]

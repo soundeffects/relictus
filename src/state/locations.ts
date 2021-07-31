@@ -26,15 +26,6 @@ const locationList: Map<string, Location> = new Map();
 
 
 /**
- * If a location is found with the given 'id,' returns true.
- * Otherwise, returns false.
- */
-export function validLocationId(id: string): boolean {
-  return locationList.has(id);
-}
-
-
-/**
  * An object that bundles the name alongside the description
  * of a location.
  */
@@ -138,25 +129,47 @@ export function autoDescribeLocation(id: string): LocationDescription | undefine
 }
 
 /**
- * If a location is found with the given 'id,' and the
- * 'item_id' provided is valid, adds the item to the 
+ * If a location is found with the given 'id,' then for each
+ * member of 'item_ids,' the item will be added to the
  * location's contents.
  */
-export function addToLocation(id: string, item_id: string): void {
-  if (ItemState.validItemId(item_id))
-    locationList.get(id)?.contents.push(item_id);
+export function addContents(id: string, item_ids: string[]): void {
+  const contents = locationList.get(id)?.contents;
+  if (contents)
+    item_ids.forEach(item => contents.push(item));
 }
 
 
 /**
- * If a location is found with the given 'id,' and the
- * 'item_id' is found within the location's contents,
- * removes the item from the contents.
+ * If a location is found with the given 'id,' then returns
+ * the contents of the location: a list of items. Otherwise,
+ * returns undefined.
  */
-export function removeFromLocation(id: string, item_id: string): void {
-  const loc = locationList.get(id);
-  if (loc)
-    loc.contents = loc.contents.filter(item => item !== item_id)
+export function getContents(id: string): string[] | undefined {
+  return locationList.get(id)?.contents;
+}
+
+
+/**
+ * If a location is found with the given 'id,' then for each
+ * member of 'item_ids,' the item will be removed from
+ * the location's contents, if possible. Any items that are
+ * not able to be removed will be returned in an array.
+ */
+export function removeContents(id: string, item_ids: string[]): string[] {
+  const contents = locationList.get(id)?.contents;
+  const leftovers: string[] = [];
+
+  if (contents) {
+    item_ids.forEach(item => {
+      if (contents.includes(item))
+        contents.splice(contents.indexOf(item, 1));
+      else
+        leftovers.push(item);
+    });
+  }
+
+  return leftovers;
 }
 
 

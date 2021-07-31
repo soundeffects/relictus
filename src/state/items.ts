@@ -36,15 +36,6 @@ const itemList: Map<string, Item> = new Map();
 
 
 /**
- * If the 'id' provided maps to an item, returns true.
- * Otherwise, returns false.
- */
-export function validItemId(id: string): boolean {
-  return itemList.has(id);
-}
-
-
-/**
  * If an item with the given 'id' is found, and the item's
  * list of names includes the given 'name,' return true. If
  * the item did not have 'name,' return false, and if no
