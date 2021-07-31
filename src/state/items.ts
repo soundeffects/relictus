@@ -36,17 +36,6 @@ const itemList: Map<string, Item> = new Map();
 
 
 /**
- * If an item with the given 'id' is found, and the item's
- * list of names includes the given 'name,' return true. If
- * the item did not have 'name,' return false, and if no
- * item was found with that 'id,' return undefined.
- */
-export function itemHasName(id: string, name: string): boolean | undefined {
-  return itemList.get(id)?.names.includes(name);
-}
-
-
-/**
  * If an item with the given 'id' is found, returns the
  * item's name. Otherwise, returns undefined.
  */

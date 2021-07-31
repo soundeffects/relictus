@@ -1,5 +1,11 @@
 import { locations } from '../content.json';
-import * as ItemState from './items';
+import {
+  nameItem,
+  describeItem,
+  itemIsPlural,
+  itemHasCarryClass,
+  CarryClass
+} from './items';
 
 
 /**
@@ -40,7 +46,7 @@ function listItems(items: string[]): string {
   let item_sentence = "There ";
   
   items.forEach((item, index) => {
-    const plural = ItemState.itemIsPlural(item);
+    const plural = itemIsPlural(item);
     const isStart = index === 0;
     const isEnd = index === items.length - 1;
 
@@ -54,9 +60,9 @@ function listItems(items: string[]): string {
     }
 
     if (plural)
-      item_sentence += "some " + ItemState.nameItem(item);
+      item_sentence += "some " + nameItem(item);
     else
-      item_sentence += "a " + ItemState.nameItem(item);
+      item_sentence += "a " + nameItem(item);
 
     if (isEnd)
       item_sentence += " here.";
@@ -87,12 +93,12 @@ export function describeLocation(id: string): LocationDescription | undefined {
   const looseItems: string[] = [];
   location.contents.forEach(item => {
     // if item is not a fixture, put into abbreviated list
-    if (!ItemState.itemHasCarryClass(item, ItemState.CarryClass.fixed))
+    if (!itemHasCarryClass(item, CarryClass.fixed))
       looseItems.push(item);
 
     // for fixtures, describe fully
     else {
-      const desc = ItemState.describeItem(item);
+      const desc = describeItem(item);
       if (desc)
         descs.push(desc);
     }
