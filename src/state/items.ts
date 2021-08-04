@@ -37,44 +37,127 @@ const itemList: Map<string, Item> = new Map();
 
 /**
  * If an item with the given 'id' is found, returns the
- * item's name. Otherwise, returns undefined.
+ * item's name. If no item with the given 'id' is found,
+ * throws an exception.
  */
-export function nameItem(id: string): string | undefined {
-  return itemList.get(id)?.names[0];
+export function nameItem(id: string): string {
+  const item = itemList.get(id);
+  if (!item)
+    throw "Invalid item id!";
+  return item.names[0];
 }
 
 
 /**
  * If an item with the given 'id' is found, returns the
- * item's description. Otherwise, returns undefined.
+ * item's description. If no item with the given 'id' is
+ * found, throws an exception.
  */
-export function describeItem(id: string): string | undefined {
-  return itemList.get(id)?.description;
+export function describeItem(id: string): string {
+  const item = itemList.get(id);
+  if (!item)
+    throw "Invalid item id!";
+  return item.description;
+}
+
+
+// Returns a single-sentence list of the items provided
+// Undefined behavior for empty list
+function listSentence(items: Item[]): string {
+  let list_sentence = "There ";
+
+  items.forEach((item, index) => {
+    const isStart = index === 0;
+    const isEnd = index === items.length - 1;
+
+    if (isStart) {
+      if (item.plural)
+        list_sentence += "are ";
+      else
+        list_sentence += "is ";
+    } else if (isEnd) {
+      list_sentence += "and ";
+    }
+
+    if (item.plural)
+      list_sentence += "some " + item.names[0];
+    else
+      list_sentence += "a " + item.names[0];
+
+    if (isEnd)
+      list_sentence += " here.";
+    else
+      list_sentence += ", ";
+  });
+
+  return list_sentence;
 }
 
 
 /**
- * If an item with the given 'id' is found, returns whether
- * it should be referred to with plurality (upon which it
- * returns true) or not (returns false). If no item with
- * the given 'id' was found, returns undefined.
+ * Given an empty array of 'itemIds,' will return a sentence
+ * saying nothing is there. Given a full array, it will
+ * provide a single sentence listing all the items present.
+ * If any id in the array is invalid, it will throw an
+ * exception.
  */
- export function itemIsPlural(id: string): boolean | undefined {
-  return itemList.get(id)?.plural;
- }
+export function listAllItems(itemIds: string[]): string {
+  if (itemIds.length === 0)
+    return "There is nothing here.";
+
+  const items = itemIds.map(id => {
+    const item = itemList.get(id)
+    if (!item)
+      throw "Invalid item id in list!";
+    return item;
+  });
+
+  return listSentence(items);
+}
+
+
+/**
+ * Given an empty array, it will return an empty array. If
+ * given an array with items that have the 'fixed' carry
+ * class, it will add all of those item's descriptions to
+ * the array it returns. For any other items, it will put
+ * their names in a single sentence list at the end of the
+ * array it returns. If any item id in the array provided is
+ * invalid, it will throw an exception.
+ */
+export function describeFixedElseList(itemIds: string[]): string[] {
+  const descriptions: string[] = [];
+  const looseItems: Item[] = [];
+  
+  itemIds.map(item => itemList.get(item))
+  .forEach(item => {
+    if (!item)
+      throw "Invalid item id in list!";
+    
+    if (item.carry === CarryClass.fixed)
+      descriptions.push(item.description);
+    else
+      looseItems.push(item);
+  });
+
+  if (looseItems.length > 0)
+    descriptions.push(listSentence(looseItems))
+
+  return descriptions;
+}
 
 
 /**
  * If an item with the given 'id' is found, and the item's
  * carry class is the same as the 'cc' provided, returns
  * true. If the carry class differs, returns false. If no
- * item could be found with the given 'id,' returns
- * undefined.
+ * item could be found with the given 'id,' throws an
+ * exception.
  */
-export function itemHasCarryClass(id: string, cc: CarryClass): boolean | undefined {
+export function itemHasCarryClass(id: string, cc: CarryClass): boolean {
   const item = itemList.get(id);
   if (!item)
-    return undefined;
+    throw "Invalid item id!";
   return item.carry === cc;
 }
 

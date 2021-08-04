@@ -1,8 +1,8 @@
 import { locations } from '../content.json';
 import {
-  nameItem,
   describeItem,
-  itemIsPlural,
+  listAllItems,
+  describeFixedElseList,
   itemHasCarryClass,
   CarryClass
 } from './items';
@@ -41,40 +41,6 @@ export interface LocationDescription {
 }
 
 
-// Creates a single-sentence list of items from an array
-function listItems(items: string[]): string {
-  let item_sentence = "There ";
-  
-  items.forEach((item, index) => {
-    const plural = itemIsPlural(item);
-    const isStart = index === 0;
-    const isEnd = index === items.length - 1;
-
-    if (isStart) {
-      if (plural)
-        item_sentence += "are ";
-      else
-        item_sentence += "is ";
-    } else if (isEnd) {
-      item_sentence += "and "
-    }
-
-    if (plural)
-      item_sentence += "some " + nameItem(item);
-    else
-      item_sentence += "a " + nameItem(item);
-
-    if (isEnd)
-      item_sentence += " here.";
-    else
-      item_sentence += ", ";
-    
-  });
-
-  return item_sentence;
-}
-
-
 /**
  * If a location is found with the given 'id,' returns a
  * full description of the location, including the
@@ -89,23 +55,10 @@ export function describeLocation(id: string): LocationDescription | undefined {
   if (!location)
     return undefined;
 
-  const descs: string[] = [location.description];
-  const looseItems: string[] = [];
-  location.contents.forEach(item => {
-    // if item is not a fixture, put into abbreviated list
-    if (!itemHasCarryClass(item, CarryClass.fixed))
-      looseItems.push(item);
-
-    // for fixtures, describe fully
-    else {
-      const desc = describeItem(item);
-      if (desc)
-        descs.push(desc);
-    }
-  });
-  descs.push(listItems(looseItems));
-
-  return { name: location.name, descriptions: descs };
+  return {
+    name: location.name,
+    descriptions: describeFixedElseList(location.contents)
+  };
 }
 
 
@@ -127,7 +80,7 @@ export function autoDescribeLocation(id: string): LocationDescription | undefine
   if (location.seen) {
     return {
       name: location.name,
-      descriptions: [ listItems(location.contents) ]
+      descriptions: [ listAllItems(location.contents) ]
     };
   }
 

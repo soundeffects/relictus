@@ -13,6 +13,9 @@ beforeEach(() => {
 });
 
 
+test('nothing', () => {});
+
+
 // nameModule
 
 

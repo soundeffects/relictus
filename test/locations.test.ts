@@ -14,6 +14,8 @@ beforeEach(() => {
   resetLocations();
 });
 
+test('nothing', () => {});
+
 
 // describeLocation
 

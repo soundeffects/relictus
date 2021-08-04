@@ -12,5 +12,7 @@ beforeEach(() => {
   resetRecipes();
 });
 
+test('nothing', () => {});
+
 
 // checkRecipes
