@@ -1,10 +1,8 @@
 import { locations } from '../content.json';
 import {
-  describeItem,
+  validItemId,
   listAllItems,
   describeFixedElseList,
-  itemHasCarryClass,
-  CarryClass
 } from './items';
 
 
@@ -21,7 +19,6 @@ interface Location {
   description: string;
   links: Map<string, string>;
   contents: string[];
-  seen: boolean;
 }
 
 
@@ -48,16 +45,21 @@ export interface LocationDescription {
  * the descriptions of fixtures (items with carry class
  * "fixed") in the location and a list of other, non-fixture
  * items. If no location was found with the given 'id,'
- * returns undefined.
+ * throws an exception.
  */
-export function describeLocation(id: string): LocationDescription | undefined {
+export function longDescribeLocation(id: string): LocationDescription {
   const location = locationList.get(id);
   if (!location)
-    return undefined;
+    throw "Invalid location id!";
+  
+  const descriptions = [
+    location.description,
+    ...describeFixedElseList(location.contents)
+  ];
 
   return {
     name: location.name,
-    descriptions: describeFixedElseList(location.contents)
+    descriptions
   };
 }
 
@@ -69,43 +71,53 @@ export function describeLocation(id: string): LocationDescription | undefined {
  * the location has been seen before, then return a
  * shortened description, consisting only of the name and
  * a single-sentence list of the items in the location.
- * If no location was found with the given 'id,' return
- * undefined.
+ * If no location was found with the given 'id,' throws an
+ * exception.
  */
-export function autoDescribeLocation(id: string): LocationDescription | undefined {
+export function shortDescribeLocation(id: string): LocationDescription {
   const location = locationList.get(id);
   if (!location)
-    return undefined;
+    throw "Invalid location id!";
 
-  if (location.seen) {
-    return {
-      name: location.name,
-      descriptions: [ listAllItems(location.contents) ]
-    };
-  }
-
-  return describeLocation(id);
+  return {
+    name: location.name,
+    descriptions: [ listAllItems(location.contents) ]
+  };
 }
 
 /**
  * If a location is found with the given 'id,' then for each
  * member of 'item_ids,' the item will be added to the
- * location's contents.
+ * location's contents. If no location is found with the
+ * given 'id,' throws an exception. If no item is found for
+ * any member of 'item_ids,' throws an exception.
  */
 export function addContents(id: string, item_ids: string[]): void {
-  const contents = locationList.get(id)?.contents;
-  if (contents)
-    item_ids.forEach(item => contents.push(item));
+  const location = locationList.get(id);
+  if (!location)
+    throw "Invalid location id!";
+
+  item_ids.forEach(item => {
+    if (validItemId(item))
+      location.contents.push(item)
+    else
+      throw "Invalid item id!";
+  });
 }
 
 
 /**
  * If a location is found with the given 'id,' then returns
- * the contents of the location: a list of items. Otherwise,
- * returns undefined.
+ * the contents of the location: a list of items. If no
+ * location is found with the given 'id,' throws an
+ * exception.
  */
-export function getContents(id: string): string[] | undefined {
-  return locationList.get(id)?.contents;
+export function getContents(id: string): string[] {
+  const location = locationList.get(id);
+  if (!location)
+    throw "Invalid location id!";
+
+  return location.contents;
 }
 
 
@@ -113,39 +125,55 @@ export function getContents(id: string): string[] | undefined {
  * If a location is found with the given 'id,' then for each
  * member of 'item_ids,' the item will be removed from
  * the location's contents, if possible. Any items that are
- * not able to be removed will be returned in an array.
+ * not able to be removed will be returned in an array. If
+ * no location is found with the given 'id,' throws an
+ * exception. If no item is found for any member of
+ * 'item_ids,' throws an exception.
  */
 export function removeContents(id: string, item_ids: string[]): string[] {
-  const contents = locationList.get(id)?.contents;
-  const leftovers: string[] = [];
+  const location = locationList.get(id);
+  if (!location)
+    throw "Invalid location id!";
 
-  if (contents) {
-    item_ids.forEach(item => {
-      if (contents.includes(item))
-        contents.splice(contents.indexOf(item, 1));
-      else
-        leftovers.push(item);
-    });
-  }
+  const leftovers: string[] = [];
+  const { contents } = location;
+
+  item_ids.forEach(item => {
+    if (!validItemId(item))
+      throw "Invalid item id!";
+    else if (contents.includes(item))
+      contents.splice(contents.indexOf(item, 1));
+    else
+      leftovers.push(item);
+  });
 
   return leftovers;
 }
 
 
 /**
- * If a location is found with the given id, and a link is
+ * If a location is found with the given 'id,' and a link is
  * found in the given direction, returns the id of the
- * location on the other end of the link. Otherwise, returns
- * an empty string.
+ * location on the other end of the link. If no link is
+ * found in the given direction, returns undefined. If no
+ * location is found with the given 'id,' throws an
+ * exception.
  */
-export function getLocationLink(id: string, direction: string): string {
-  return locationList.get(id)?.links.get(direction) || "";
+export function getLocationLink(id: string, direction: string): string | undefined {
+  const location = locationList.get(id);
+  if (!location)
+    throw "Invalid location id!";
+
+  return location.links.get(direction);
 }
 
 
 /**
  * Clears the list of locations, and re-adds them according
- * to the content json file.
+ * to the content json file. Expects items to be in a stable
+ * state (resetItems must be called before this). If any
+ * item to be added as content is found invalid according to
+ * the content json file, it will throw an exception.
  */
 export function resetLocations(): void {
   locationList.clear();
@@ -153,7 +181,7 @@ export function resetLocations(): void {
   interface LocationJSON {
     id: string,
     name: string,
-    description: string,
+    description: string[],
     links: object,
     contents: string[]
   };
@@ -164,14 +192,21 @@ export function resetLocations(): void {
     return map;
   }
 
+  function checkContents(contents: string[]): string[] {
+    contents.forEach(item => {
+      if (!validItemId(item))
+        throw "Invalid item id in content JSON!";
+    });
+    return contents;
+  }
+
   locations.forEach((location: LocationJSON) =>
     locationList.set(location.id,
       {
         name: location.name,
-        description: location.description,
+        description: location.description.join(),
         links: objectToMap(location.links),
-        contents: location.contents,
-        seen: false
+        contents: checkContents(location.contents)
       }
     )
   );

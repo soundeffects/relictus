@@ -24,7 +24,6 @@ interface Item {
   names: string[];
   description: string;
   carry: CarryClass;
-  seen: boolean;
   plural: boolean;
 }
 
@@ -44,6 +43,7 @@ export function nameItem(id: string): string {
   const item = itemList.get(id);
   if (!item)
     throw "Invalid item id!";
+
   return item.names[0];
 }
 
@@ -57,7 +57,17 @@ export function describeItem(id: string): string {
   const item = itemList.get(id);
   if (!item)
     throw "Invalid item id!";
+
   return item.description;
+}
+
+
+/**
+ * If an item exists with the given 'id,' returns true.
+ * Otherwise returns false.
+ */
+export function validItemId(id: string): boolean {
+  return itemList.has(id);
 }
 
 
@@ -158,6 +168,7 @@ export function itemHasCarryClass(id: string, cc: CarryClass): boolean {
   const item = itemList.get(id);
   if (!item)
     throw "Invalid item id!";
+
   return item.carry === cc;
 }
 
@@ -173,7 +184,7 @@ export function resetItems(): void {
     id: string;
     names: string[];
     plural: boolean;
-    description: string;
+    description: string[];
     carry: string;
   };
 
@@ -182,9 +193,8 @@ export function resetItems(): void {
       {
         names: item.names,
         plural: item.plural,
-        description: item.description,
-        carry: CarryClass[item.carry as keyof typeof CarryClass],
-        seen: false
+        description: item.description.join(),
+        carry: CarryClass[item.carry as keyof typeof CarryClass]
       }
     )
   );

@@ -6,7 +6,11 @@
         "sheet", "wires", "mechanisms", "machine",
         "mechanism"],
       "plural": true,
-      "description": "Packed away are folds of wires, mechanisms, and metal sheet, illuminated by flashes and sparks. It appears things here are in disrepair.",
+      "description": [
+        "Packed away are folds of wires, mechanisms, and ",
+        "metal sheet, illuminated by flashes and sparks. ",
+        "It appears things here are in disrepair."
+      ],
       "carry": "fixed"
     },
     {
@@ -14,7 +18,9 @@
       "names": ["Grasper Attachment", "grasper", "arm", 
         "part"],
       "plural": false,
-      "description": "",
+      "description": [
+        ""
+      ],
       "carry": "small"
     }
   ],
@@ -22,7 +28,9 @@
     {
       "id": "grasper",
       "name": "Grasper",
-      "help": "",
+      "help": [
+        ""
+      ],
       "commands": {
         "catalyze": ["use"],
         "carry": ["grab", "carry"],
@@ -34,26 +42,46 @@
     {
       "id": "nose",
       "name": "Nosecone",
-      "description": "The bot stops as it reaches the end of the rail. Here, the walls taper into a point, forming a conical shape. Free space is limited.",
+      "description": [
+        "The bot stops as it reaches the end of the rail. ",
+        "Here, the walls taper into a point, forming a ",
+        "conical shape. Free space is limited."
+      ],
       "links": {
-        "aft": "cpu"
+        "aft": "cpu",
+        "down": "cpu"
       },
       "contents": ["net"]
     },
     {
       "id": "cpu",
       "name": "Onboard Computer",
-      "description": "A smooth, cylindrical tunnel wraps around the bot rails, made out of reflective chrome panels. Small labels mark each panel, indicating which computer system is housed there.",
+      "description": [
+        "A smooth, cylindrical tunnel wraps around the ",
+        "bot rails, made out of reflective chrome panels. ",
+        "Small labels mark each panel, indicating which ",
+        "computer system is housed there."
+      ],
       "links": {
         "fore": "nose",
-        "aft": "carrier"
+        "up": "nose",
+        "aft": "carrier",
+        "down": "carrier"
       },
       "contents": []
     },
     {
       "id": "carrier",
       "name": "Carrier",
-      "description": "About twenty bulky spheres embed into the tunnel walls around the bot rails, each marked by a word--a name. Closest to the camera reads 'Julian.' Each sphere's status is indicated by a small LED light; and all lights are red. All except one, shining green alone. You feel your stomach sinking.",
+      "description": [
+        "About twenty bulky spheres embed into the tunnel ",
+        "walls around the bot rails, each marked by a ",
+        "word--a name. Closest to the camera reads ",
+        "'Julian.' Each sphere's status is indicated by a ",
+        "small LED light; and all lights are red. All ",
+        "except one, shining green alone. You feel your ",
+        "stomach sinking."
+      ],
       "links": {
         "fore": "cpu",
         "aft": "life_support"
@@ -63,7 +91,14 @@
     {
       "id": "life_support",
       "name": "Life Support",
-      "description": "This room is all sterile and bright. Glossy white plastic plates machinery to prevent any corrosion. On opposite sides of the tunnel are two bright stripes, either red or blue, 'Blood' or 'Water.' Several manual control switches are placed along the stripes, underneath the labels.",
+      "description": [
+        "This room is all sterile and bright. Glossy ",
+        "white plastic plates machinery to prevent any ",
+        "corrosion. On opposite sides of the tunnel are ",
+        "two bright stripes, either red or blue, 'Blood' ",
+        "or 'Water.' Several manual control switches are ",
+        "placed along the stripes, underneath the labels."
+      ],
       "links": {
         "fore": "carrier",
         "aft": "cargo"
@@ -73,19 +108,33 @@
     {
       "id": "cargo",
       "name": "Cargo Bay",
-      "description": "Majestic space stretches before you, enclosed by metal walls, with grated patterns covering the surface. Debris fills the space, floating in a big mess. You have some difficulty trying to pinpoint the cause for the mess, and it's concerning.",
+      "description": [
+        "Majestic space stretches before you, enclosed by ",
+        "metal walls, with grated patterns covering the ",
+        "surface. Debris fills the space, floating in a ",
+        "big mess. You have some difficulty trying to ",
+        "pinpoint the cause for the mess, and it's ",
+        "concerning."
+      ],
       "links": {
         "fore": "life_support",
         "aft": "reactor",
         "out": "compartment_top"
-        
       },
       "contents": []
     },
     {
       "id": "reactor",
       "name": "Reactor Monitor",
-      "description": "The rail ends here. In engraved letters on the far wall: 'Reactor Monitor.' In contrast with the rest of the ship, the walls here are of dark and clunky metal, and thick bolts secure them. It is as if only the strongest of materials will hold, where design is unable to afford thought for aesthetic.",
+      "description": [
+        "The rail ends here. In engraved letters on the ",
+        "far wall: 'Reactor Monitor.' In contrast with ",
+        "the rest of the ship, the walls here are of dark ",
+        "and clunky metal, and thick bolts secure them. ",
+        "It is as if only the strongest of materials will ",
+        "hold, where design is unable to afford thought ",
+        "for aesthetic."
+      ],
       "links": {
         "fore": "cargo"
       },
@@ -94,7 +143,9 @@
     {
       "id": "compartment_top",
       "name": "Outside Crew Compartment, topside",
-      "description": "",
+      "description": [
+        ""
+      ], 
       "links": {
         "fore": "outside_nose",
         "aft": "reactor_top",
@@ -106,7 +157,9 @@
     {
       "id": "compartment_bottom",
       "name": "Outside Crew Compartment, bottomside",
-      "description": "",
+      "description": [
+        ""
+      ],
       "links": {
         "fore": "outside_nose",
         "aft": "reactor_bottom",
@@ -117,7 +170,9 @@
     {
       "id": "outside_nose",
       "name": "Outside Crew Compartment, on nose",
-      "description": "",
+      "description": [
+        ""
+      ],
       "links": {
         "aft": "compartment_top"
       },
@@ -126,7 +181,9 @@
     {
       "id": "reactor_top",
       "name": "Outside Reactor, topside",
-      "description": "",
+      "description": [
+        ""
+      ],
       "links": {
         "fore": "compartment_top",
         "aft": "tail",
@@ -137,7 +194,9 @@
     {
       "id": "reactor_bottom",
       "name": "Outside Reactor, bottomside",
-      "description": "",
+      "description": [
+        ""
+      ],
       "links": {
         "fore": "compartment_bottom",
         "aft": "tail",
@@ -148,7 +207,9 @@
     {
       "id": "tail",
       "name": "Outside Reactor, on tail",
-      "description": "",
+      "description": [
+        ""
+      ],
       "links": {
         "fore": "reactor_top"
       },
@@ -162,7 +223,10 @@
       "result": {
         "score": 1,
         "flag": "firstView",
-        "event": "Your camera hooks up, and you view your surroundings."
+        "event": [
+          "Your camera hooks up, and you view your ",
+          "surroundings."
+        ]
       }
     }
   ]

@@ -1,12 +1,13 @@
 import {
   nameItem,
   describeItem,
+  validItemId,
   listAllItems,
   describeFixedElseList,
   itemHasCarryClass,
   resetItems,
   CarryClass
-} from '../src/state/items';
+} from '../../src/state/items';
 
 
 beforeEach(() => {
@@ -43,6 +44,21 @@ describe('describeItem', () => {
 
   it('should throw for undefined item', () => {
     expect(() => describeItem('undefined')).toThrow();
+  });
+});
+
+
+describe('validItemId', () => {
+  it('returns true for valid item', () => {
+    expect(validItemId('net')).toBeTruthy();
+  });
+
+  it('returns true for another valid item', () => {
+    expect(validItemId('grasper')).toBeTruthy();
+  });
+
+  it('returns false for invalid item', () => {
+    expect(validItemId('undefined')).toBeFalsy();
   });
 });
 
@@ -132,8 +148,8 @@ describe('itemHasCarryClass', () => {
 // resetItems
 describe('resetItems', () => {
   it('should define the correct items', () => {
-    expect(() => nameItem('net')).not.toThrow();
-    expect(() => nameItem('grasper')).not.toThrow();
-    expect(() => nameItem('undefined')).toThrow();
+    expect(validItemId('net')).toBeTruthy();
+    expect(validItemId('grasper')).toBeTruthy();
+    expect(validItemId('undefined')).toBeTruthy();
   });
 });

@@ -98,7 +98,7 @@ export function resetModules(): void {
   interface ModuleJSON {
     id: string;
     name: string;
-    help: string;
+    help: string[];
     commands: {
       catalyze?: string[];
       describe?: string[];
@@ -124,7 +124,7 @@ export function resetModules(): void {
     moduleList.set(module.id,
       {
         name: module.name,
-        help: module.help,
+        help: module.help.join(),
         commands: command_map
       }
     )

@@ -195,7 +195,7 @@ export function resetRecipes(): void {
     result: {
       score?: number;
       flag?: string;
-      event?: string;
+      event?: string[];
       consumeItems?: boolean;
       items?: string[];
       convertModule?: string;
