@@ -186,16 +186,13 @@ export function resetRecipes(): void {
 
   interface RecipeJSON {
     catalyst: string;
-    repeatable: boolean;
     requirements?: {
       operation?: string;
       items?: string[];
-      flags?: string[];
+      events?: string[];
     }
     result: {
-      score?: number;
-      flag?: string;
-      event?: string[];
+      event?: string;
       consumeItems?: boolean;
       items?: string[];
       convertModule?: string;
@@ -214,10 +211,6 @@ export function resetRecipes(): void {
         newRecipe.requirements.operation = 
           ModuleOperation[recipe.requirements.operation as keyof typeof ModuleOperation];
     }
-    if (!recipe.repeatable)
-      newRecipe.activated = false;
-
-
     recipesList.get(recipe.catalyst)?.push(newRecipe) 
       || recipesList.set(recipe.catalyst, [ newRecipe ]);
   });

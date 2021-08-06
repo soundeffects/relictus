@@ -216,17 +216,22 @@
       "contents": []
     }
   ],
+  "events": [
+    {
+      "id": "firstView",
+      "score": 0,
+      "repeatable": false,
+      "message": [
+        "Your camera hooks up, and you view your ",
+        "surroundings."
+      ]
+    }
+  ],
   "recipes": [
     {
       "catalyst": "camera",
-      "repeatable": false,
       "result": {
-        "score": 1,
-        "flag": "firstView",
-        "event": [
-          "Your camera hooks up, and you view your ",
-          "surroundings."
-        ]
+        "event": "firstView"
       }
     }
   ]

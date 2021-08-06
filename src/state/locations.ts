@@ -51,15 +51,13 @@ export function longDescribeLocation(id: string): LocationDescription {
   const location = locationList.get(id);
   if (!location)
     throw "Invalid location id!";
-  
-  const descriptions = [
-    location.description,
-    ...describeFixedElseList(location.contents)
-  ];
 
   return {
     name: location.name,
-    descriptions
+    descriptions: [
+      location.description,
+      ...describeFixedElseList(location.contents)
+    ]
   };
 }
 
