@@ -2,18 +2,6 @@ import { items } from '../content.json';
 
 
 /**
- * If a module has the same carry class as an item, that
- * module can carry that item.
- */
-export enum CarryClass {
-  small,
-  large,
-  fluid,
-  fixed
-}
-
-
-/**
  * Items either exist in a location or are carried by a
  * module. They can be identified by multiple names, and
  * they have a description that is printed automatically
@@ -23,7 +11,7 @@ export enum CarryClass {
 interface Item {
   names: string[];
   description: string;
-  carry: CarryClass;
+  carry: string;
   plural: boolean;
 }
 
@@ -144,7 +132,7 @@ export function describeFixedElseList(itemIds: string[]): string[] {
     if (!item)
       throw "Invalid item id in list!";
     
-    if (item.carry === CarryClass.fixed)
+    if (item.carry === "fixed")
       descriptions.push(item.description);
     else
       looseItems.push(item);
@@ -159,17 +147,17 @@ export function describeFixedElseList(itemIds: string[]): string[] {
 
 /**
  * If an item with the given 'id' is found, and the item's
- * carry class is the same as the 'cc' provided, returns
+ * carry class is the same as the 'carry' provided, returns
  * true. If the carry class differs, returns false. If no
  * item could be found with the given 'id,' throws an
  * exception.
  */
-export function itemHasCarryClass(id: string, cc: CarryClass): boolean {
+export function itemHasCarryClass(id: string, carry: string): boolean {
   const item = itemList.get(id);
   if (!item)
     throw "Invalid item id!";
 
-  return item.carry === cc;
+  return item.carry === carry;
 }
 
 
@@ -194,7 +182,7 @@ export function resetItems(): void {
         names: item.names,
         plural: item.plural,
         description: item.description.join(),
-        carry: CarryClass[item.carry as keyof typeof CarryClass]
+        carry: item.carry
       }
     )
   );

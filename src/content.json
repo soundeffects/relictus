@@ -28,14 +28,21 @@
     {
       "id": "grasper",
       "name": "Grasper",
-      "help": [
+      "primary": "interact",
+      "primaryAliases": ["use"],
+      "primaryHelp": [
         ""
       ],
-      "commands": {
-        "catalyze": ["use"],
-        "carry": ["grab", "carry"],
-        "drop": ["drop"]
-      }
+      "secondary": "carry",
+      "secondaryAliases": ["grab"],
+      "secondaryHelp": [
+        ""
+      ],
+      "tertiary": "drop",
+      "tertiaryAliases": [],
+      "tertiaryHelp": [
+        ""
+      ]
     }
   ],
   "locations": [

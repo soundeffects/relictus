@@ -2,21 +2,6 @@ import { modules } from '../content.json';
 
 
 /**
- * There are only a few different ways a module can be used.
- * Each of these module operations get handled differently
- * when a Bot tries to act by using a module.
- */
-export enum ModuleOperation {
-  catalyze,
-  describe,
-  move,
-  carry,
-  drop,
-  fail
-}
-
-
-/**
  * Modules have a name, a paragraph of help on how to use
  * the module, and a list of commands and aliases (and what
  * ModuleOperation these commands are linked to). Modules
@@ -26,8 +11,15 @@ export enum ModuleOperation {
  */
 interface Module {
   name: string;
-  help: string;
-  commands: Map<string, ModuleOperation>;
+  primary: string;
+  primaryAliases: string[];
+  primaryHelp: string;
+  secondary?: string;
+  secondaryAliases?: string[];
+  secondaryHelp?: string;
+  tertiary?: string;
+  tertiaryAliases?: string[];
+  tertiaryHelp?: string;
 }
 
 
@@ -39,10 +31,26 @@ const moduleList: Map<string, Module> = new Map();
 
 /**
  * If a module with the given 'id' is found, returns the
- * name of that module. Otherwise, returns undefined.
+ * name of that module. IF no module with the given 'id' is
+ * found, throws an exception.
  */
 export function nameModule(id: string): string | undefined {
-  return moduleList.get(id)?.name;
+  const module = moduleList.get(id);
+  if (!module)
+    throw "Invalid module id!";
+
+  return module.name;
+}
+
+
+/**
+ * Bundles together a module executing one of it's commands,
+ * and any parameters passed along.
+ */
+export interface ModuleOperation {
+  module: string;
+  command: string;
+  parameters: string[];
 }
 
 
@@ -53,8 +61,38 @@ export function nameModule(id: string): string | undefined {
  * should be performed by the bot. If no other operation
  * applies, the 'fail' operation will be returned.
  */
-export function findModuleOperation(ids: string[], tokens: string[]): ModuleOperation {
-  return ModuleOperation.fail;
+export function findModuleOperations(ids: string[], tokens: string[]): ModuleOperation[] {
+  const ops: ModuleOperation[] = [];
+
+  if (tokens.length === 0)
+    throw "The 'tokens' array provided must have a length of 1 or greater!";
+
+  const modules = ids.map(id => {
+    const module = moduleList.get(id);
+    if (!module)
+      throw "Invalid module id!";
+    
+    return module;
+  });
+
+
+  modules.forEach(module => {
+    const command = tokens.shift() ?? ""; // coalesce just to remove error messages
+
+    function checkAliases(main: string | undefined, aliases: string[] | undefined) {
+      if (main && aliases?.concat(main).includes(command))
+        ops.push({
+          module: module.name,
+          command: main,
+          parameters: tokens
+        });
+    }
+    checkAliases(module.primary, module.primaryAliases);
+    checkAliases(module.secondary, module.secondaryAliases);
+    checkAliases(module.tertiary, module.tertiaryAliases);
+  });
+
+  return ops;
 }
 
 
@@ -64,8 +102,12 @@ export function findModuleOperation(ids: string[], tokens: string[]): ModuleOper
  */
 export interface ModuleHelp {
   name: string;
-  help: string;
-  commands: string[];
+  primaryAliases: string[];
+  primaryHelp: string;
+  secondaryAliases?: string[];
+  secondaryHelp?: string;
+  tertiaryAliases?: string[];
+  tertiaryHelp?: string;
 }
 
 
@@ -76,10 +118,10 @@ export interface ModuleHelp {
  * If no module is found with the given 'id,' returns
  * undefined.
  */
-export function moduleHelp(id: string): ModuleHelp | undefined {
+export function moduleHelp(id: string): ModuleHelp {
   const module = moduleList.get(id);
   if (!module)
-    return undefined;
+    throw "Invalid module id!";
 
   return {
     name: module.name,
@@ -98,35 +140,31 @@ export function resetModules(): void {
   interface ModuleJSON {
     id: string;
     name: string;
-    help: string[];
-    commands: {
-      catalyze?: string[];
-      describe?: string[];
-      move?: string[];
-      carry?: string[];
-      drop?: string[];
-    }
+    primary: string;
+    primaryAliases: string[];
+    primaryHelp: string[];
+    secondary?: string;
+    secondaryAliases?: string[];
+    secondaryHelp?: string[];
+    tertiary?: string;
+    tertiaryAliases?: string[];
+    tertiaryHelp?: string[];
   }
 
-  modules.forEach((module: ModuleJSON) => {
-    const command_map: Map<string, ModuleOperation> = new Map();
-
-    function set_map(commands: string[] | undefined, operation: ModuleOperation) {
-      commands?.forEach(command => command_map.set(command, operation));
-    }
-
-    set_map(module.commands.catalyze, ModuleOperation.catalyze);
-    set_map(module.commands.describe, ModuleOperation.describe);
-    set_map(module.commands.move, ModuleOperation.move);
-    set_map(module.commands.carry, ModuleOperation.carry);
-    set_map(module.commands.drop, ModuleOperation.drop);
-
+  modules.forEach((module: ModuleJSON) =>
     moduleList.set(module.id,
       {
         name: module.name,
-        help: module.help.join(),
-        commands: command_map
+        primary: module.primary,
+        primaryAliases: module.primaryAliases,
+        primaryHelp: module.primaryHelp.join(),
+        secondary: module.secondary,
+        secondaryAliases: module.secondaryAliases,
+        secondaryHelp: module.secondaryHelp?.join(),
+        tertiary: module.tertiary,
+        tertiaryAliases: module.tertiaryAliases,
+        tertiaryHelp: module.tertiaryHelp?.join()
       }
     )
-  });
+  );
 }
